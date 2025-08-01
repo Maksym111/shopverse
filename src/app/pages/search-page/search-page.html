@@ -6,6 +6,7 @@
     ></app-filters>
 
     <div class="search-wrapper">
+      @if (appliedFilters.length) {
       <div class="applied-filters-wrapper mb24">
         <p class="search-sub-title mb12">Applied Filters:</p>
 
@@ -17,6 +18,7 @@
           }
         </ul>
       </div>
+      }
 
       <div class="result-info-wrapper mb24">
         <p class="result-count">

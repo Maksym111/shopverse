@@ -122,7 +122,7 @@ button {
   width: 12px;
   height: 6px;
   margin-left: 14px;
-  @include mixins.background-img-center("arrow.svg");
+  background: url("./assets/images/arrow.svg") no-repeat center center;
 
   &.arrow-right {
     transform: rotate(-90deg);
@@ -146,7 +146,7 @@ button {
     display: inline-block;
     width: 13px;
     height: 13px;
-    @include mixins.background-img-center("arrow-right.svg");
+    background: url("./assets/images/arrow-right.svg") no-repeat center center;
     background-size: contain;
     margin-left: 17px;
   }
@@ -182,7 +182,7 @@ button {
   display: block;
   width: 24px;
   height: 24px;
-  @include mixins.background-img-center("share.svg");
+  background: url("./assets/images/share.svg") no-repeat center center;
 }
 
 .whish-btn {

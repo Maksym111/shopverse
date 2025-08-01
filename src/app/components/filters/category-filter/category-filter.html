@@ -8,6 +8,7 @@
         type="checkbox"
         class="category-name-inp"
         name="category-name"
+        [(ngModel)]="category.checked"
         (change)="chooseCategory($event, category)"
       />
       {{category.value}}

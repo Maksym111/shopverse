@@ -1,9 +1,19 @@
 <app-category-filter
   (categoriesEmit)="getAllCategoryFilters($event)"
+  [categoryFilters]="allFiltersData?.category"
 ></app-category-filter>
 
 @if (!isHidden) {
-<button type="button" class="btn apply-filters mt24" (click)="apllyFilters()">
+<button
+  type="button"
+  class="btn apply-filters mt24 mb12"
+  (click)="apllyFilters()"
+>
   Apply
+</button>
+
+} @if(appliedFilters.length){
+<button type="button" class="btn clear-all-filters" (click)="clearAll()">
+  Clear all
 </button>
 }

@@ -5,7 +5,8 @@
   border-radius: 6px;
 }
 
-.apply-filters {
+.apply-filters,
+.clear-all-filters {
   max-width: none;
   background: var(--background-green-color);
   transition: box-shadow var(--transition-standart);
@@ -13,4 +14,9 @@
   &:hover {
     box-shadow: var(--box-shadow-hover);
   }
+}
+
+.clear-all-filters {
+  background: var(--text-color);
+  color: var(--white-color);
 }

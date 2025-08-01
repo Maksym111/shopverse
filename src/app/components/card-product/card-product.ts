@@ -1,13 +1,20 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { Product } from '../../data/interfaces/products.interface';
 import { CurrencyPipe } from '@angular/common';
+import { RouterLink } from '@angular/router';
 
 @Component({
   selector: 'app-card-product',
-  imports: [CurrencyPipe],
+  imports: [CurrencyPipe, RouterLink],
   templateUrl: './card-product.html',
   styleUrl: './card-product.scss',
 })
-export class CardProduct {
+export class CardProduct implements OnInit {
   @Input() product!: Product;
+
+  linkProduct = '';
+
+  ngOnInit(): void {
+    this.linkProduct = `/product/${this.product.id}`;
+  }
 }

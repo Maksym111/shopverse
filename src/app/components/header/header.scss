@@ -130,7 +130,7 @@
     transform: rotate(-90deg);
     width: 13px;
     height: 13px;
-    @include mixins.background-img-center("arrow.svg");
+    background: url("../../../assets/images/arrow.svg") no-repeat center center;
     color: var(--regular-color);
   }
 

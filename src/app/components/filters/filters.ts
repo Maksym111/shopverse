@@ -27,7 +27,7 @@ export class Filters {
 
     this.isHidden = !isNewCategoris;
 
-    this.allFiltersData = { category: values };
+    this.allFiltersData = { category: [...values] };
   }
 
   apllyFilters() {
@@ -52,9 +52,12 @@ export class Filters {
       appliedIds.length === newIds.length &&
       appliedIds.every((elem) => newIds.includes(elem));
 
-    console.log('appliedIds', appliedIds);
-    console.log('newIds', newIds);
-
     return !arrsAreEqual;
+  }
+
+  clearAll() {
+    this.allFiltersData = { category: [] };
+    this.filtersEmitted.emit(this.allFiltersData);
+    this.isHidden = true;
   }
 }

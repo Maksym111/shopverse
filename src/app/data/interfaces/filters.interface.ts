@@ -5,4 +5,5 @@ export interface FiltersInterf {
 export interface CategoryFilterInterf {
   id: number;
   value: string;
+  checked: boolean;
 }

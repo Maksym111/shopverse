@@ -4,10 +4,6 @@
   line-height: $lh;
 }
 
-@mixin background-img-center($imgName) {
-  background: url(unquote("/assets/images/#{$imgName}")) no-repeat center center;
-}
-
 @mixin width-height($wh) {
   width: $wh;
   height: $wh;
