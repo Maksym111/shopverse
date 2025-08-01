@@ -1,0 +1,75 @@
+<section class="hero">
+  <div class="container">
+    <div>
+      <h1 class="h1 mb12">Fresh Arrivals Online</h1>
+      <p class="text">Discover Our Newest Collection Today.</p>
+
+      <a routerLink="/collection" class="btn hero-btn">
+        <span class="btn-text">View Collection</span>
+        <span class="arrow-right"></span>
+      </a>
+    </div>
+  </div>
+</section>
+
+<section class="best-selling">
+  <div class="container">
+    <div class="best-selling-title">
+      <h4 class="subtitle mb8">Shop Now</h4>
+      <h3 class="h3">Best Selling</h3>
+    </div>
+
+    <ul class="list product-list">
+      @for(product of products; track product.id) {
+      <li>
+        <app-card-product [product]="product"></app-card-product>
+      </li>
+      }
+    </ul>
+  </div>
+</section>
+
+<section class="browse-categories">
+  <div class="container">
+    <div class="browse-categories-description">
+      <h3 class="h3 mb24">Browse Our Fashion Paradise!</h3>
+
+      <p class="text mb32">
+        Step into a world of style and explore our diverse collection of
+        clothing categories.
+      </p>
+
+      <a routerLink="/collection" class="btn">
+        <span class="btn-text">Start Browsing</span>
+        <span class="arrow-right"></span>
+      </a>
+    </div>
+  </div>
+</section>
+
+<section class="featured-products">
+  <div class="container">
+    <div class="featured-products-title mb48">
+      <button
+        [ngClass]="{'category-btn': true, 'circled': activeFeturedCategory === 'women'}"
+        (click)="setFeatureCategory('women')"
+      >
+        Women
+      </button>
+      <button
+        [ngClass]="{'category-btn': true, 'circled': activeFeturedCategory === 'sport'}"
+        (click)="setFeatureCategory('sport')"
+      >
+        Sport
+      </button>
+    </div>
+
+    <ul class="list product-list">
+      @for(product of featuredProducts; track product.id) {
+      <li>
+        <app-card-product [product]="product"></app-card-product>
+      </li>
+      }
+    </ul>
+  </div>
+</section>

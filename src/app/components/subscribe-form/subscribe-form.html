@@ -1,0 +1,17 @@
+<form #subsForm="ngForm" class="subscribe-form" (ngSubmit)="onSubmit(subsForm)">
+  <input
+    type="email"
+    placeholder="Your email address"
+    class="input subscribe-input"
+    [(ngModel)]="inputValue"
+    name="email"
+    required="true"
+    email
+  />
+
+  <p class="errorMsg" *ngIf="errorMsg">
+    <span class="error-text">Please enter a valid email address.</span>
+  </p>
+
+  <button type="submit" class="btn subscribe-btn">Subscribe</button>
+</form>

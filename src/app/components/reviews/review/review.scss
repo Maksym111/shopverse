@@ -1,0 +1,36 @@
+@use "mixins.scss" as mixins;
+
+:host {
+  display: grid;
+  grid-template-columns: 48px 1fr 96px;
+  column-gap: 24px;
+  padding: 25px 8px;
+}
+
+.review-ava {
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  background-color: var(--background-light-color);
+  padding: 12px 15px;
+}
+
+.review-ava-text {
+  text-transform: uppercase;
+  color: var(--blue-color);
+}
+
+.review-name {
+  font-weight: 500;
+}
+
+.review-date {
+  color: var(--regular-color);
+  text-transform: uppercase;
+  @include mixins.fsize-fweight-lheight();
+  letter-spacing: 0.6px;
+}
+
+.review-text {
+  color: var(--regular-color);
+}

@@ -1,0 +1,14 @@
+@mixin fsize-fweight-lheight($fs: 12, $fw: 500, $lh: 2) {
+  font-size: #{$fs}px;
+  font-weight: $fw;
+  line-height: $lh;
+}
+
+@mixin background-img-center($imgName) {
+  background: url(unquote("/assets/images/#{$imgName}")) no-repeat center center;
+}
+
+@mixin width-height($wh) {
+  width: $wh;
+  height: $wh;
+}

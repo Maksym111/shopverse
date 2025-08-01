@@ -1,0 +1,65 @@
+<div class="top-header">
+  <p class="text">Get 25% OFF on your first order.</p>
+  <a href="" class="link header-link">Order Now</a>
+</div>
+
+<div class="container">
+  <div class="header-wrapper mb12">
+    <a routerLink="/" class="logo-wrapper">
+      <img src="assets/images/header-logo.svg" alt="" class="logo" />
+      <span class="logo-text">Shopverse</span>
+    </a>
+
+    <nav class="navigation">
+      <ul class="list">
+        @for(nav of navList; track nav){
+        <li class="item">
+          <a [routerLink]="nav.path" class="link navigation-link">
+            <span class="text">{{ nav.name }}</span>
+            @if(nav.sublinks){
+            <span class="arrow"></span>
+            }
+          </a>
+        </li>
+        }
+      </ul>
+    </nav>
+
+    <div class="header-right">
+      <div class="header-search">
+        <img class="search-icon" src="assets/images/search.svg" alt="" />
+        <input type="text" placeholder="Search products" class="search-input" />
+      </div>
+      <div class="header-cart">
+        <a routerLink="/cart">
+          <img src="assets/images/cart.svg" alt="" class="header-cart-icon" />
+        </a>
+      </div>
+      <div class="header-user-info">
+        <a routerLink="/profile">
+          <img
+            src="assets/images/user-icon.svg"
+            alt=""
+            class="header-user-info-icon"
+          />
+        </a>
+      </div>
+    </div>
+  </div>
+
+  <ul class="list breadcrumbs-list mb24">
+    <li class="breadcrumb-item">
+      <a routerLink="/" class="link breadcrumb">
+        <svg icon="home" class="link breadcrumb-home"></svg>
+      </a>
+    </li>
+    @for (breadcrumb of (breadcrumbs$ | async); track breadcrumb.label) {
+    @if(breadcrumb.label !== 'Home') {
+    <li class="breadcrumb-item">
+      <a [routerLink]="breadcrumb.url" class="link breadcrumb">
+        {{ breadcrumb.label }}
+      </a>
+    </li>
+    } }
+  </ul>
+</div>

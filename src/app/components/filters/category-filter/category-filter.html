@@ -1,0 +1,21 @@
+<p class="search-sub-title mb12">Categories</p>
+
+<ul class="list category-list mb8" [class.short-list]="!isOpenFilter">
+  @for(category of allCategories; track category.id){
+  <li class="category-item">
+    <label class="category-text">
+      <input
+        type="checkbox"
+        class="category-name-inp"
+        name="category-name"
+        (change)="chooseCategory($event, category)"
+      />
+      {{category.value}}
+    </label>
+  </li>
+  }
+</ul>
+
+<button type="button" (click)="showMoreFilters()" class="show-more-btn">
+  {{isOpenFilter ? "Hide" : "Show more"}}
+</button>

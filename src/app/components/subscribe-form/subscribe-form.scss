@@ -1,0 +1,22 @@
+.subscribe-form {
+  position: relative;
+  display: flex;
+  gap: 16px;
+}
+
+.subscribe-input {
+  background: var(--background-primary-color);
+  font-weight: 500;
+}
+
+.subscribe-btn {
+  width: 116px;
+}
+
+.errorMsg {
+  position: absolute;
+  bottom: -25px;
+  left: 10px;
+  color: red;
+  font-size: 12px;
+}

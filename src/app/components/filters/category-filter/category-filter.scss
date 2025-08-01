@@ -1,0 +1,24 @@
+.category-item {
+  padding: 12px 4px;
+  border-bottom: 1px solid var(--light-color);
+}
+
+.category-name-inp {
+  width: 18px;
+  height: 18px;
+}
+
+.short-list {
+  .category-item:nth-child(n + 6) {
+    display: none;
+  }
+}
+
+.category-text {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+
+  color: var(--text-color);
+  cursor: pointer;
+}

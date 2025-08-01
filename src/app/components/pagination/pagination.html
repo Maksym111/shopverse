@@ -1,0 +1,50 @@
+<ul class="list pagination">
+  <li class="pagination-item">
+    <button
+      type="button"
+      class="pagination-page-previous"
+      (click)="onPrevBtn()"
+      [disabled]="currentPage === 1"
+    >
+      <svg icon="arrow" class="icon"></svg>
+    </button>
+  </li>
+  <li class="pagination-item">
+    <ul class="list pagination-page-numbers">
+      @for(numb of makeArrPerPage(); track trackByIndex($index, numb)){ @if(numb
+      === currentPage){
+      <li class="pagination-page-item {{trackByIndex($index, numb)}}">
+        <button
+          type="button"
+          class="pagination-page-number active"
+          [attr.data-index]="$index"
+        >
+          {{numb}}
+        </button>
+      </li>
+      } @else {
+
+      <li class="pagination-page-item {{trackByIndex($index, numb)}}">
+        <button
+          type="button"
+          class="pagination-page-number"
+          [attr.data-index]="$index"
+          (click)="changePage($event)"
+        >
+          {{numb}}
+        </button>
+      </li>
+      } }
+    </ul>
+  </li>
+  <li class="pagination-item">
+    <button
+      type="button"
+      class="pagination-page-next"
+      (click)="onNextBtn()"
+      [disabled]="currentPage === getCountPages().length"
+    >
+      <svg icon="arrow" class="icon"></svg>
+    </button>
+  </li>
+</ul>

@@ -1,0 +1,23 @@
+@if(review){
+<div class="review-ava">
+  <span class="review-ava-text">{{review.reviewerName | firstLetters}}</span>
+</div>
+
+<div class="review-info">
+  <p class="review-name mb8">{{review.reviewerName}}</p>
+
+  <p class="review-date mb12">{{review.date | date : "shortDate"}}</p>
+
+  <p class="review-text">{{review.comment}}</p>
+</div>
+
+<div class="stars">
+  @for(star of getCountStars(); track star){
+  <svg
+    icon="star"
+    class="star"
+    [ngClass]="{'empty-star': review.rating - 1 < star, 'star': true}"
+  ></svg>
+  }
+</div>
+}

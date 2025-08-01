@@ -1,0 +1,155 @@
+@use "mixins.scss" as mixins;
+
+.top-header {
+  display: flex;
+  gap: 8px;
+  justify-content: center;
+  background-color: var(--primary-color);
+  padding: 8px;
+  text-align: center;
+  color: var(--white-color);
+
+  .text {
+    color: var(--white-color);
+  }
+}
+
+.header-link {
+  display: inline-block;
+  color: inherit;
+  font-weight: 500;
+  text-decoration: underline;
+}
+
+.header-wrapper {
+  display: grid;
+  grid-template-columns: auto 1fr 1fr;
+  align-items: center;
+}
+
+.logo-wrapper {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  padding: 22px 0;
+  margin-right: 103px;
+  text-decoration: none;
+}
+
+.logo {
+  width: 40px;
+  height: 40px;
+}
+
+.logo-text {
+  font-family: "Manrope", sans-serif;
+  font-size: 20px;
+  color: var(--primary-color);
+  letter-spacing: -0.7px;
+  font-weight: 900;
+}
+
+.navigation {
+  .list {
+    display: flex;
+    gap: 32px;
+    justify-content: left;
+    align-items: center;
+  }
+}
+
+.navigation-link {
+  display: flex;
+  align-items: center;
+  font-weight: 500;
+  color: var(--regular-color);
+}
+
+.header-right {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 32px;
+}
+
+.header-search {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+
+  padding: 10px 15px;
+  border: 1px solid var(--light-color);
+  border-radius: 6px;
+}
+
+.search-input {
+  color: var(--primary-color);
+  border: none;
+
+  &:focus-visible {
+    outline: none;
+  }
+
+  &::placeholder {
+    color: var(--placeholder-color);
+  }
+}
+
+.search-icon,
+.header-cart-icon,
+.header-user-info-icon {
+  width: 24px;
+  height: 24px;
+}
+
+.breadcrumbs {
+  display: flex;
+  gap: 4px;
+  align-items: center;
+
+  .arrow {
+    margin: 0;
+  }
+}
+
+.breadcrumbs-list {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+}
+
+.breadcrumb-item {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+
+  &:not(:last-child)::after {
+    content: "";
+    display: inline-block;
+    transform: rotate(-90deg);
+    width: 13px;
+    height: 13px;
+    @include mixins.background-img-center("arrow.svg");
+    color: var(--regular-color);
+  }
+
+  &:last-child .breadcrumb {
+    color: var(--primary-color);
+  }
+}
+
+.breadcrumb {
+  color: var(--regular-color);
+  line-height: 1.3;
+
+  &:hover {
+    text-decoration: underline;
+  }
+}
+
+.breadcrumb-home {
+  color: var(--regular-color);
+  width: 18px;
+  height: 18px;
+}

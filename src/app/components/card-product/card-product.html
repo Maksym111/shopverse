@@ -1,0 +1,16 @@
+@if(product){
+
+<div class="product-image">
+  <img [src]="product.thumbnail" alt="" class="product-image-img" />
+</div>
+
+<div class="product-info">
+  <span class="product-title">{{product.title}}</span>
+
+  <div class="product-info-price">
+    <span class="circled">IN STOCK</span>
+
+    <span class="product-price">{{product.price | currency}}</span>
+  </div>
+</div>
+}

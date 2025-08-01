@@ -1,0 +1,38 @@
+<h5 class="h5 mb16">Reviews</h5>
+
+<p class="rating mb40">
+  {{rating}} <span class="count-reviews">— {{reviews.length}} Reviews</span>
+</p>
+
+<button class="comment-btn mb24" (click)="openModal()">Write a review</button>
+
+<div class="select-wrapper mb24">
+  <div class="select-container">
+    <p class="select-title">Sort by</p>
+    <svg icon="arrow" class="select-arrow"></svg>
+    <app-select
+      [values]="selectData"
+      (newData)="getSelectedNewData($event)"
+    ></app-select>
+  </div>
+</div>
+
+<ul class="list reviews mb32">
+  @for (review of reviewsPerPage; track review) {
+  <li class="review">
+    <app-review [review]="review"></app-review>
+  </li>
+  }
+</ul>
+
+@if(isLoadMore){
+<button type="button" class="load-more-btn" (click)="loadMore()">
+  Load more reviews
+</button>
+}
+
+<ng-template #modalTemplate let-submitEvent="submitEvent">
+  <app-feedback-form [submitEvent]="submitEvent"></app-feedback-form>
+</ng-template>
+
+<ng-container #modalTarget></ng-container>

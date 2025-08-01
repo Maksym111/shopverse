@@ -1,0 +1,16 @@
+:host {
+  display: block;
+  padding: 18px 24px 32px;
+  border: 1px solid var(--light-color);
+  border-radius: 6px;
+}
+
+.apply-filters {
+  max-width: none;
+  background: var(--background-green-color);
+  transition: box-shadow var(--transition-standart);
+
+  &:hover {
+    box-shadow: var(--box-shadow-hover);
+  }
+}

@@ -1,0 +1,107 @@
+@if(product){
+<section class="customizing-section mb48">
+  <div class="container">
+    <div class="customizing-card">
+      <div class="customizing-card-img-wrapper">
+        <img [src]="product.images[0]" alt="" class="customizing-card-img" />
+      </div>
+
+      <div class="customizing-options">
+        <h2 class="customizing-options-title">
+          <span>{{product.title}}</span>
+
+          <a class="link card-share"></a>
+        </h2>
+
+        <div class="reviews-stock">
+          <div class="reviews">
+            <svg icon="star" class="icon star"></svg>
+            <span class="text"
+              >{{product.rating}} — {{product.reviews.length}} Reviews</span
+            >
+          </div>
+
+          <span class="circled"
+            >{{product.availabilityStatus | uppercase}}</span
+          >
+        </div>
+
+        <p class="price">{{product.price | currency}}</p>
+
+        <div class="brand">
+          <p class="option-title">Brand</p>
+
+          <p class="brand-text">{{product.brand}}</p>
+        </div>
+
+        <div class="quantity-choises">
+          <p class="option-title mb8">Quantity</p>
+
+          <div class="quantity">
+            <button
+              class="quantity-btn quantity-minus"
+              (click)="reduceCount()"
+              [disabled]="countProduct <= 1"
+            >
+              -
+            </button>
+            <span class="quantity-value">{{countProduct}}</span>
+            <button class="quantity-btn quantity-plus" (click)="addCount()">
+              +
+            </button>
+          </div>
+        </div>
+
+        <div class="adding-cart-wrapper">
+          <button class="btn">Add to cart</button>
+
+          <button class="whish-btn">
+            <svg icon="heart" class="whish-icon"></svg>
+          </button>
+        </div>
+
+        <p class="free-text">— Free shipping on orders $100+</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="dexcription-section">
+  <div class="container">
+    <div class="dexcription-wrapper">
+      <ul class="list tab-list">
+        <li [ngClass]="{'tab-item': true, 'active': tabName === 'details'}">
+          <button class="tab-btn" (click)="onTabClick('details')">
+            <span class="tab-icon-wrapper">
+              <svg icon="dots" class="icon tab-icon"></svg>
+            </span>
+            <span class="tab-text">Details</span>
+          </button>
+        </li>
+
+        <li [ngClass]="{'tab-item': true, 'active': tabName === 'reviews'}">
+          <button class="tab-btn" (click)="onTabClick('reviews')">
+            <span class="tab-icon-wrapper">
+              <svg icon="star" class="tab-icon empty-star"></svg>
+            </span>
+            <span class="tab-text">Reviews</span>
+          </button>
+        </li>
+      </ul>
+
+      @switch (tabName) { @case ('details') {
+      <div class="dexcription-column">
+        <h5 class="h5 mb24">Detail</h5>
+
+        <p class="dexcription-text">{{product.description}}</p>
+      </div>
+      } @case ('reviews') {
+      <app-reviews
+        [reviews]="product.reviews"
+        [rating]="product.rating"
+      ></app-reviews>
+      } }
+    </div>
+  </div>
+</section>
+}

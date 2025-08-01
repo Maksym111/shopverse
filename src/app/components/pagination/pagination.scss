@@ -1,0 +1,57 @@
+@use "mixins.scss" as mixins;
+
+.pagination {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  width: fit-content;
+  margin: 0 auto 64px;
+
+  border: 1px solid var(--light-color);
+  border-radius: 4px;
+}
+
+.pagination-page-previous,
+.pagination-page-next,
+.pagination-page-number {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: none;
+  color: var(--regular-color);
+
+  padding: 8px;
+  @include mixins.width-height(40px);
+
+  &:hover {
+    background: var(--background-primary-color);
+  }
+}
+
+.pagination-page-previous:disabled,
+.pagination-page-next:disabled {
+  opacity: 0.3;
+  cursor: not-allowed;
+
+  &:hover {
+    background: none;
+  }
+}
+
+.pagination-page-previous {
+  transform: rotate(90deg);
+}
+.pagination-page-next {
+  transform: rotate(-90deg);
+}
+
+.pagination-page-numbers {
+  display: flex;
+  align-items: center;
+}
+
+.pagination-page-number.active {
+  background: var(--text-color);
+  color: var(--white-color);
+}

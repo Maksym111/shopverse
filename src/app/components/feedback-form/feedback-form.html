@@ -1,0 +1,98 @@
+<form class="feedback-form" [formGroup]="form" (ngSubmit)="onSubmit()">
+  <div class="feedback-field-wrapper">
+    <label for="email" class="feedback-label">Email</label>
+    <input
+      type="email"
+      class="feedback-input"
+      id="email"
+      placeholder="example@media.com"
+      formControlName="email"
+    />
+
+    <p
+      *ngIf="email?.touched && !email?.value; else incorrectEmail"
+      class="field-error"
+    >
+      Email is required
+    </p>
+
+    <ng-template #incorrectEmail>
+      <ng-content *ngIf="email?.invalid && email?.value && email?.touched">
+        <p class="field-error">Write correct email</p>
+      </ng-content>
+    </ng-template>
+  </div>
+
+  <div class="feedback-field-wrapper">
+    <label for="fullname" class="feedback-label">Full name</label>
+    <input
+      type="text"
+      class="feedback-input"
+      id="fullname"
+      placeholder="Mark Twain"
+      formControlName="fullName"
+    />
+
+    <p
+      *ngIf="fullName?.touched && !fullName?.value; else incorrectFullName"
+      class="field-error"
+    >
+      Full name is required
+    </p>
+
+    <ng-template #incorrectFullName>
+      <ng-content
+        *ngIf="fullName?.invalid && fullName?.value && fullName?.touched"
+      >
+        <p class="field-error">Full name must be more than 2 symbols</p>
+      </ng-content>
+    </ng-template>
+  </div>
+
+  <div class="feedback-field-wrapper">
+    <label for="review" class="feedback-label">Review</label>
+    <textarea
+      type="text"
+      class="feedback-textarea"
+      id="review"
+      placeholder="I would like to ask you..."
+      formControlName="review"
+    ></textarea>
+  </div>
+
+  <div class="feedback-field-wrapper mt24">
+    <p class="feedback-label">Rate the product</p>
+
+    <ul class="list stars">
+      <!-- @for(star of getCountStars(); track star){ -->
+      <li
+        class="star-item"
+        *ngFor="let star of getCountStars(); trackBy: trackByIndex"
+      >
+        <input
+          type="radio"
+          class="star-radio"
+          name="rate"
+          [value]="5 - star"
+          (change)="onStarClick($event)"
+          formControlName="rate"
+        />
+        <svg
+          icon="star"
+          class="star"
+          [ngClass]="{'star': !isFilled, 'filledStar': isFilled}"
+        ></svg>
+      </li>
+      <!-- } -->
+    </ul>
+
+    <p
+      *ngIf="rate?.touched && rate?.invalid && form.invalid"
+      class="field-error"
+    >
+      Rate is required
+    </p>
+  </div>
+
+  <button type="submit" class="btn feedback-submit">Submit Your Review</button>
+</form>

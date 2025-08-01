@@ -1,0 +1,45 @@
+:host {
+  display: block;
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  right: 0;
+}
+
+select {
+  display: none;
+}
+
+.select {
+  position: relative;
+  display: block;
+  width: 100%;
+  height: 100%;
+  cursor: pointer;
+}
+
+.select-list {
+  position: absolute;
+  top: calc(100% + 5px);
+  right: 0;
+  border: 1px solid var(--regular-color);
+}
+
+.option {
+  padding: 3px 8px;
+  background: var(--white-color);
+  white-space: nowrap;
+
+  &:not(:last-child) {
+    border-bottom: 1px solid var(--light-color);
+  }
+
+  &.selected {
+    background: var(--regular-color);
+    color: var(--white-color);
+  }
+
+  &:not(.selected):hover {
+    background: var(--light-color);
+  }
+}
