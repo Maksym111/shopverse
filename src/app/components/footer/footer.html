@@ -1,3 +1,4 @@
+@if(!isSpecUrl){
 <section class="subscribe">
   <div class="container">
     <div class="subscribe-description">
@@ -11,8 +12,9 @@
     <app-subscribe-form></app-subscribe-form>
   </div>
 </section>
+}
 
-<footer class="footer">
+<footer class="footer" [class.isSpec]="isSpecUrl">
   <div class="container">
     <div class="footer-grid">
       <div class="footer-first">

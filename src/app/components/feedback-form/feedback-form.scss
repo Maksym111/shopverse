@@ -1,42 +1,8 @@
 @use "mixins.scss" as mixins;
 
-.feedback-field-wrapper {
-  display: flex;
-  flex-direction: column;
-  margin-bottom: 15px;
-}
-
-.feedback-label {
-  font-weight: 500;
-  color: var(--text-color);
-  margin-bottom: 5px;
-}
-
-.feedback-input,
-.feedback-textarea {
-  padding: 5px 10px;
-  border: 1px solid var(--light-color);
-  border-radius: 6px;
-  color: var(--primary-color);
-
-  &::placeholder {
-    color: var(--placeholder-color);
-  }
-
-  &:not(.ng-untouched).ng-invalid {
-    outline: 1px solid red;
-  }
-}
-
 .feedback-textarea {
   resize: none;
   height: 130px;
-}
-
-.field-error {
-  color: rgb(192, 0, 0);
-  margin-top: 3px;
-  @include mixins.fsize-fweight-lheight();
 }
 
 .stars {

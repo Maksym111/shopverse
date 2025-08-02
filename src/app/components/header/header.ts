@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { RouterLink } from '@angular/router';
 import { Observable } from 'rxjs';
 import { Breadcrumb } from '../../data/interfaces/breadcrumb.interface';
-import { BreadcrumbService } from '../../services/breadcrumb-service';
+import { BreadcrumbService } from '../../services/breadcrumb/breadcrumb-service';
 import { AsyncPipe } from '@angular/common';
 import { IconSvg } from '../icon-svg/icon-svg';
 

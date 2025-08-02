@@ -1,0 +1,33 @@
+<form class="login-form" [formGroup]="form" (ngSubmit)="onSubmit()">
+  <div class="form-field-wrapper">
+    <label for="username" class="form-label">Login</label>
+    <input
+      type="text"
+      name="username"
+      id="username"
+      class="form-input"
+      formControlName="username"
+      placeholder="example@media.com"
+    />
+
+    <p *ngIf="username?.touched && !username?.value" class="form-field-error">
+      Login is required
+    </p>
+  </div>
+
+  <div class="form-field-wrapper">
+    <label for="password" class="form-label">Password</label>
+    <input
+      type="text"
+      name="password"
+      id="password"
+      class="form-input"
+      formControlName="password"
+      placeholder="Write your password"
+    />
+  </div>
+
+  <button type="submit" class="btn login-btn mt24 mb24">Login</button>
+</form>
+
+<a class="sign-up-link">Don't have an account? Sign up</a>

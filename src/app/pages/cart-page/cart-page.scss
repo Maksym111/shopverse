@@ -1,0 +1,20 @@
+:host {
+  .container {
+    display: grid;
+    grid-template-columns: 1fr 340px;
+    column-gap: 120px;
+  }
+}
+
+.cart-items-title {
+  padding: 18px 0;
+  border-bottom: 1px solid var(--light-color);
+  color: var(--primary-color);
+}
+
+.cart-order-list {
+  display: flex;
+  flex-direction: column;
+  gap: 40px;
+  width: 100%;
+}

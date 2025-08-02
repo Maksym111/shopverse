@@ -8,7 +8,7 @@ import {
   SimpleChanges,
 } from '@angular/core';
 import { CategoryFilterInterf } from '../../../data/interfaces/filters.interface';
-import { ProductService } from '../../../services/product';
+import { ProductService } from '../../../services/product/product';
 import { FormsModule } from '@angular/forms';
 
 @Component({

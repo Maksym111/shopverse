@@ -1,9 +1,9 @@
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { inject, Injectable } from '@angular/core';
-import { Products, Product } from '../data/interfaces/products.interface';
-import { ProductQueryParams } from '../data/interfaces/productQueryParams.interface';
+import { Products, Product } from '../../data/interfaces/products.interface';
+import { ProductQueryParams } from '../../data/interfaces/productQueryParams.interface';
 import { forkJoin, map } from 'rxjs';
-import { CategoryFilterInterf } from '../data/interfaces/filters.interface';
+import { CategoryFilterInterf } from '../../data/interfaces/filters.interface';
 
 @Injectable({
   providedIn: 'root',

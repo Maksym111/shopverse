@@ -3,7 +3,7 @@ import { Select } from '../../components/select/select';
 import { IconSvg } from '../../components/icon-svg/icon-svg';
 import { CardProduct } from '../../components/card-product/card-product';
 import { Product } from '../../data/interfaces/products.interface';
-import { ProductService } from '../../services/product';
+import { ProductService } from '../../services/product/product';
 import { Pagination } from '../../components/pagination/pagination';
 import {
   CategoryFilterInterf,

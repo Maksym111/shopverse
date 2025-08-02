@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { ActivatedRouteSnapshot, Resolve } from '@angular/router';
 import { Observable } from 'rxjs';
 
-import { Product } from '../data/interfaces/products.interface';
+import { Product } from '../../data/interfaces/products.interface';
 import { ProductService } from './product';
 
 @Injectable({

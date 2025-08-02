@@ -1,9 +1,9 @@
 <form class="feedback-form" [formGroup]="form" (ngSubmit)="onSubmit()">
-  <div class="feedback-field-wrapper">
-    <label for="email" class="feedback-label">Email</label>
+  <div class="form-field-wrapper">
+    <label for="email" class="form-label">Email</label>
     <input
       type="email"
-      class="feedback-input"
+      class="form-input"
       id="email"
       placeholder="example@media.com"
       formControlName="email"
@@ -11,23 +11,23 @@
 
     <p
       *ngIf="email?.touched && !email?.value; else incorrectEmail"
-      class="field-error"
+      class="form-field-error"
     >
       Email is required
     </p>
 
     <ng-template #incorrectEmail>
       <ng-content *ngIf="email?.invalid && email?.value && email?.touched">
-        <p class="field-error">Write correct email</p>
+        <p class="form-field-error">Write correct email</p>
       </ng-content>
     </ng-template>
   </div>
 
-  <div class="feedback-field-wrapper">
-    <label for="fullname" class="feedback-label">Full name</label>
+  <div class="form-field-wrapper">
+    <label for="fullname" class="form-label">Full name</label>
     <input
       type="text"
-      class="feedback-input"
+      class="form-input"
       id="fullname"
       placeholder="Mark Twain"
       formControlName="fullName"
@@ -35,7 +35,7 @@
 
     <p
       *ngIf="fullName?.touched && !fullName?.value; else incorrectFullName"
-      class="field-error"
+      class="form-field-error"
     >
       Full name is required
     </p>
@@ -44,23 +44,23 @@
       <ng-content
         *ngIf="fullName?.invalid && fullName?.value && fullName?.touched"
       >
-        <p class="field-error">Full name must be more than 2 symbols</p>
+        <p class="form-field-error">Full name must be more than 2 symbols</p>
       </ng-content>
     </ng-template>
   </div>
 
-  <div class="feedback-field-wrapper">
-    <label for="review" class="feedback-label">Review</label>
+  <div class="form-field-wrapper">
+    <label for="review" class="form-label">Review</label>
     <textarea
       type="text"
-      class="feedback-textarea"
+      class="form-textarea feedback-textarea"
       id="review"
       placeholder="I would like to ask you..."
       formControlName="review"
     ></textarea>
   </div>
 
-  <div class="feedback-field-wrapper mt24">
+  <div class="form-field-wrapper mt24">
     <p class="feedback-label">Rate the product</p>
 
     <ul class="list stars">
@@ -88,7 +88,7 @@
 
     <p
       *ngIf="rate?.touched && rate?.invalid && form.invalid"
-      class="field-error"
+      class="form-field-error"
     >
       Rate is required
     </p>

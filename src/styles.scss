@@ -9,6 +9,7 @@
   --white-color: #ffffff;
   --blue-color: #4078ff;
   --text-color: #474b57;
+  --error-color-text: rgb(192, 0, 0);
 
   --background-primary-color: #f6f6f6;
   --background-light-color: #f0f1ff;
@@ -63,7 +64,8 @@ select {
   background: none;
 }
 
-button {
+button,
+a {
   cursor: pointer;
 }
 
@@ -334,4 +336,38 @@ button {
   color: var(--text-color);
   @include mixins.fsize-fweight-lheight();
   text-decoration: underline;
+}
+
+.form-field-wrapper {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 15px;
+}
+
+.form-label {
+  font-weight: 500;
+  color: var(--text-color);
+  margin-bottom: 5px;
+}
+
+.form-input,
+.form-textarea {
+  padding: 5px 10px;
+  border: 1px solid var(--light-color);
+  border-radius: 6px;
+  color: var(--primary-color);
+
+  &::placeholder {
+    color: var(--placeholder-color);
+  }
+
+  &:not(.ng-untouched).ng-invalid {
+    outline: 1px solid red;
+  }
+}
+
+.form-field-error {
+  color: var(--error-color-text);
+  margin-top: 3px;
+  @include mixins.fsize-fweight-lheight();
 }
