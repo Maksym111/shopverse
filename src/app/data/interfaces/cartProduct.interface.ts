@@ -1,7 +1,4 @@
-export interface CartProduct {
-  id: number;
-  title: string;
+export interface CartProductInterf<T> {
+  product: T;
   quantity: number;
-  price: number;
-  image?: string;
 }

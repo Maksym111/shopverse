@@ -81,46 +81,6 @@
   letter-spacing: 0.6px;
 }
 
-.quantity {
-  display: flex;
-  width: fit-content;
-  align-items: center;
-  gap: 25px;
-  border-radius: 4px;
-  border: 1px solid var(--light-color);
-}
-
-.quantity-btn {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: 50px;
-  height: 50px;
-  color: var(--regular-color);
-  border: none;
-  font-size: 30px;
-
-  &:hover {
-    border: 2px solid var(--primary-color);
-  }
-
-  &:disabled {
-    opacity: 0.5;
-    cursor: not-allowed;
-  }
-}
-
-.quantity-plus {
-  font-size: 26px;
-}
-
-.quantity-value {
-  color: var(--regular-color);
-
-  @include mixins.fsize-fweight-lheight(20, 500);
-  line-height: inherit;
-}
-
 .adding-cart-wrapper {
   display: flex;
   gap: 16px;

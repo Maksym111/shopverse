@@ -6,6 +6,8 @@ import { IconSvg } from '../../components/icon-svg/icon-svg';
 import { Reviews } from '../../components/reviews/reviews';
 import { Tabs } from '../../data/types/tabs.type';
 import { Subscription } from 'rxjs';
+import { CartService } from '../../services/cart-service';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-product-page',
@@ -20,7 +22,11 @@ export class ProductPage implements OnInit, OnDestroy {
 
   tabName: Tabs = 'reviews';
 
-  constructor(private route: ActivatedRoute) {}
+  constructor(
+    private route: ActivatedRoute,
+    private cartService: CartService,
+    private snackBar: MatSnackBar
+  ) {}
 
   ngOnInit(): void {
     this.subscriptionProduct = this.route.data.subscribe((data) => {
@@ -47,5 +53,17 @@ export class ProductPage implements OnInit, OnDestroy {
 
   ngOnDestroy(): void {
     this.subscriptionProduct.unsubscribe();
+  }
+
+  addToCartBtn() {
+    if (this.product) {
+      this.cartService.addToCart(this.product, this.countProduct);
+      this.snackBar.open('Product added to the cart!', 'Ok', {
+        horizontalPosition: 'end',
+        verticalPosition: 'top',
+        duration: 4000,
+        panelClass: ['snackbar-success'],
+      });
+    }
   }
 }

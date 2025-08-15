@@ -4,6 +4,7 @@ import {
   Inject,
   Injectable,
   Injector,
+  TemplateRef,
   Type,
   ViewContainerRef,
 } from '@angular/core';
@@ -24,21 +25,30 @@ export class ModalService {
 
   open<T extends { submitEvent: EventEmitter<void> }>(
     viewContainerRef: ViewContainerRef,
-    content: Type<T>,
+    content: Type<T> | TemplateRef<any>,
     options?: { size?: string; title?: string }
   ) {
     const modalComponent = viewContainerRef.createComponent(ModalContainer, {
       injector: this.injector,
     });
 
-    const childComponentRef =
-      modalComponent.instance.viewContainerRef.createComponent<T>(content);
+    const containerRef = modalComponent.instance.viewContainerRef;
 
-    if ('submitEvent' in childComponentRef.instance) {
-      (childComponentRef.instance as any).submitEvent =
-        modalComponent.instance.submitEvent;
-      (childComponentRef.instance as any).modalContainer =
-        modalComponent.instance;
+    if (content instanceof TemplateRef) {
+      const context = {
+        submitEvent: modalComponent.instance.submitEvent,
+      };
+
+      containerRef.createEmbeddedView(content, context);
+    } else {
+      const childComponentRef = containerRef.createComponent<T>(content);
+
+      if ('submitEvent' in childComponentRef.instance) {
+        (childComponentRef.instance as any).submitEvent =
+          modalComponent.instance.submitEvent;
+        (childComponentRef.instance as any).modalContainer =
+          modalComponent.instance;
+      }
     }
 
     modalComponent.instance.title =

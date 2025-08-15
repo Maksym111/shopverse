@@ -1,4 +1,9 @@
-import { Component, EventEmitter, Input, Output } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  EventEmitter,
+  Output,
+} from '@angular/core';
 import { CategoryFilter } from './category-filter/category-filter';
 import {
   CategoryFilterInterf,
@@ -10,20 +15,30 @@ import {
   imports: [CategoryFilter],
   templateUrl: './filters.html',
   styleUrl: './filters.scss',
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class Filters {
-  @Input() appliedFilters: CategoryFilterInterf[] = [];
-  @Output() filtersEmitted = new EventEmitter<FiltersInterf>();
+  @Output() filtersEmitted = new EventEmitter<FiltersInterf | null>();
 
   allFiltersData: FiltersInterf | null = null;
+  appliedAllFilters: FiltersInterf | null = null;
 
   isHidden = true;
 
   getAllCategoryFilters(values: CategoryFilterInterf[]) {
-    const isNewCategoris = this.isChangedCategories(
-      this.appliedFilters,
-      values
-    );
+    if (!values.length && !this.appliedAllFilters?.category?.length) {
+      this.isHidden = true;
+      return;
+    }
+
+    let isNewCategoris = true;
+
+    if (this.appliedAllFilters?.category) {
+      isNewCategoris = this.isChangedCategories(
+        this.appliedAllFilters?.category,
+        values
+      );
+    }
 
     this.isHidden = !isNewCategoris;
 
@@ -31,9 +46,9 @@ export class Filters {
   }
 
   apllyFilters() {
-    if (this.allFiltersData) {
-      this.filtersEmitted.emit(this.allFiltersData);
-    }
+    this.appliedAllFilters = { ...this.allFiltersData };
+
+    this.filtersEmitted.emit({ ...this.appliedAllFilters });
 
     this.isHidden = true;
   }
@@ -56,8 +71,9 @@ export class Filters {
   }
 
   clearAll() {
-    this.allFiltersData = { category: [] };
-    this.filtersEmitted.emit(this.allFiltersData);
+    this.allFiltersData = null;
+    this.appliedAllFilters = null;
+    this.filtersEmitted.emit(null);
     this.isHidden = true;
   }
 }

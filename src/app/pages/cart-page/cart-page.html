@@ -3,11 +3,42 @@
     <h3 class="h3 cart-items-title mb48">Your cart</h3>
 
     <ul class="list cart-order-list">
+      @if(cartProducts.length){ @for(product of cartProducts; track
+      product.product.id){
       <li>
-        <app-cart-product></app-cart-product>
+        <app-cart-product [cartProduct]="product"></app-cart-product>
       </li>
+      }} @else {
+      <h5 class="h5">No products in your cart</h5>
+      }
     </ul>
   </div>
 
-  <div class="cart-order-summary"></div>
+  <div class="cart-order-summary">
+    <div class="summary-item mb12">
+      <span class="summary-item-title">Subtotal</span>
+      <span class="price">{{allProductsPrice | currency}}</span>
+    </div>
+
+    <div class="summary-item mb12">
+      <span class="summary-item-title">Shipping: </span>
+      <span class="price">Free</span>
+    </div>
+
+    <div class="summary-item mb24">
+      <span class="summary-item-title">Tax: </span>
+      <span class="price">{{tax | currency}}</span>
+    </div>
+
+    <hr class="light-line mb24" />
+
+    <div class="summary-item mb32">
+      <span class="summary-item-title">Total</span>
+      <span class="price">{{totalPrice | currency}}</span>
+    </div>
+
+    <button type="button" class="btn summary-btn mb32">Checkout</button>
+
+    <a class="continue-shopping">Continue Shopping</a>
+  </div>
 </div>

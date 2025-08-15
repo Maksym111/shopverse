@@ -173,8 +173,8 @@ export class SearchPage implements OnInit {
     this.pageProduct = number;
   }
 
-  getFilters(filters: FiltersInterf) {
-    if (filters.category?.length) {
+  getFilters(filters: FiltersInterf | null) {
+    if (filters?.category?.length) {
       this.appliedFilters = [...filters.category];
 
       this.productService

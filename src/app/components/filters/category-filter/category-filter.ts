@@ -1,101 +1,91 @@
 import {
+  ChangeDetectionStrategy,
   Component,
   EventEmitter,
   Input,
-  OnChanges,
   OnInit,
   Output,
-  SimpleChanges,
 } from '@angular/core';
 import { CategoryFilterInterf } from '../../../data/interfaces/filters.interface';
 import { ProductService } from '../../../services/product/product';
 import { FormsModule } from '@angular/forms';
+import { BehaviorSubject, combineLatest, map, Observable, take } from 'rxjs';
+import { AsyncPipe } from '@angular/common';
 
 @Component({
   selector: 'app-category-filter',
-  imports: [FormsModule],
+  imports: [FormsModule, AsyncPipe],
   templateUrl: './category-filter.html',
   styleUrl: './category-filter.scss',
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class CategoryFilter implements OnInit, OnChanges {
-  @Input() categoryFilters: CategoryFilterInterf[] | undefined = [];
-  @Output() categoriesEmit = new EventEmitter<CategoryFilterInterf[]>();
+export class CategoryFilter implements OnInit {
+  @Input() set appliedFilters(filters: CategoryFilterInterf[] | undefined) {
+    this.checkedIds$.next(
+      filters ? new Set(filters.map((f) => f.id)) : new Set()
+    );
+  }
 
-  checkedCategories: CategoryFilterInterf[] = [];
+  @Output() categoriesEmit = new EventEmitter<CategoryFilterInterf[]>();
 
   isOpenFilter = false;
 
-  allCategories: CategoryFilterInterf[] = [];
+  private checkedIds$ = new BehaviorSubject<Set<number>>(new Set());
+
+  categories$!: Observable<CategoryFilterInterf[]>;
+
+  categoriesWithChecked$!: Observable<CategoryFilterInterf[]>;
 
   constructor(private productService: ProductService) {}
 
-  ngOnChanges(changes: SimpleChanges): void {
-    if (changes['categoryFilters']) {
-      this.switchFilteredCategories(this.categoryFilters);
-    }
-  }
-
   ngOnInit(): void {
-    this.getAllCategories();
+    this.getCategories();
+    this.markChoosenCategories();
   }
 
   showMoreFilters() {
     this.isOpenFilter = !this.isOpenFilter;
   }
 
-  getAllCategories() {
-    this.productService.getCategoryList().subscribe((res) => {
-      this.allCategories = res.map((value, index) => {
-        return {
-          id: index,
-          value,
-          checked: false,
-        };
-      });
-    });
+  getCategories() {
+    this.categories$ = this.productService.getCategoryList();
   }
 
-  chooseCategory(e: Event, item: CategoryFilterInterf) {
-    const input = e.target as HTMLInputElement;
-
-    if (input.checked) {
-      this.checkedCategories.push({
-        id: item.id,
-        value: item.value,
-        checked: true,
-      });
-    } else {
-      this.checkedCategories = this.checkedCategories.filter(
-        (elem) => elem.id !== item.id
-      );
-    }
-
-    this.categoriesEmit.emit(this.checkedCategories);
+  markChoosenCategories() {
+    this.categoriesWithChecked$ = combineLatest([
+      this.categories$,
+      this.checkedIds$,
+    ]).pipe(
+      map(([categories, checkedIds]) =>
+        categories.map((cat) => ({
+          ...cat,
+          checked: checkedIds.has(cat.id),
+        }))
+      )
+    );
   }
 
-  switchFilteredCategories(
-    categoryFilters: CategoryFilterInterf[] | undefined
-  ) {
-    if (categoryFilters?.length === 0) {
-      this.allCategories = this.allCategories.map((elem) => ({
-        ...elem,
-        checked: false,
-      }));
-      this.checkedCategories = [];
-    }
-    // else if (categoryFilters?.length) {
-    //   this.allCategories = this.allCategories.map((elem) => {
-    //     const isChecked = !!categoryFilters.find(
-    //       (filtCat) => filtCat.value === elem.value
-    //     );
+  chooseCategory(item: CategoryFilterInterf) {
+    const updatedSet = new Set(this.checkedIds$.value);
 
-    //     this.checkedCategories.push(elem);
+    updatedSet.has(item.id)
+      ? updatedSet.delete(item.id)
+      : updatedSet.add(item.id);
 
-    //     return {
-    //       ...elem,
-    //       checked: isChecked,
-    //     };
-    //   });
-    // }
+    this.checkedIds$.next(updatedSet);
+
+    this.categories$
+      .pipe(
+        take(1),
+        map((categories) =>
+          categories
+            .filter((cat) => updatedSet.has(cat.id))
+            .map((cat) => ({
+              ...cat,
+              checked: true,
+            }))
+        )
+      )
+      .subscribe((selected) => this.categoriesEmit.emit(selected));
   }
 }

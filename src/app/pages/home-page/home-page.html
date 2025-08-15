@@ -20,7 +20,7 @@
     </div>
 
     <ul class="list product-list">
-      @for(product of products; track product.id) {
+      @for(product of products$ | async; track product.id) {
       <li>
         <app-card-product [product]="product"></app-card-product>
       </li>
@@ -39,7 +39,7 @@
         clothing categories.
       </p>
 
-      <a routerLink="/collection" class="btn">
+      <a routerLink="/search" class="btn">
         <span class="btn-text">Start Browsing</span>
         <span class="arrow-right"></span>
       </a>
@@ -65,7 +65,7 @@
     </div>
 
     <ul class="list product-list">
-      @for(product of featuredProducts; track product.id) {
+      @for(product of featuredProducts$ | async; track product.id) {
       <li>
         <app-card-product [product]="product"></app-card-product>
       </li>

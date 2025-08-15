@@ -1,1 +1,26 @@
-<p>cart-product works!</p>
+<img [src]="image" alt="" class="product-image" />
+
+<div class="product-info">
+  <p class="title">{{title}}</p>
+</div>
+
+<div class="product-amount">
+  <span class="price">{{price | currency}}</span>
+  <div class="quantity">
+    <button
+      class="quantity-btn quantity-minus"
+      (click)="reduceCount()"
+      [disabled]="count <= 1"
+    >
+      -
+    </button>
+    <span class="quantity-value">{{count}}</span>
+    <button class="quantity-btn quantity-plus" (click)="addCount()">+</button>
+  </div>
+
+  <button
+    type="button"
+    class="cross remove-btn"
+    (click)="removeProduct()"
+  ></button>
+</div>

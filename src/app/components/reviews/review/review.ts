@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
 import { ReviewInterface } from '../../../data/interfaces/review.interface';
 import { IconSvg } from '../../icon-svg/icon-svg';
 import { CommonModule, DatePipe } from '@angular/common';
@@ -9,6 +9,7 @@ import { FirstLettersPipe } from '../../../pipes/first-letters-pipe';
   imports: [IconSvg, DatePipe, CommonModule, FirstLettersPipe],
   templateUrl: './review.html',
   styleUrl: './review.scss',
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class Review {
   @Input() review: ReviewInterface | null = null;

@@ -1,9 +1,6 @@
 <div class="container">
   <main class="main-wrap">
-    <app-filters
-      (filtersEmitted)="getFilters($event)"
-      [appliedFilters]="appliedFilters"
-    ></app-filters>
+    <app-filters (filtersEmitted)="getFilters($event)"></app-filters>
 
     <div class="search-wrapper">
       @if (appliedFilters.length) {

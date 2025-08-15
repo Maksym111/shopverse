@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { Router, RouterLink } from '@angular/router';
 import { SubscribeForm } from '../subscribe-form/subscribe-form';
 
@@ -7,6 +7,7 @@ import { SubscribeForm } from '../subscribe-form/subscribe-form';
   imports: [RouterLink, SubscribeForm],
   templateUrl: './footer.html',
   styleUrl: './footer.scss',
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class Footer implements OnInit {
   currenYear = new Date().getFullYear();

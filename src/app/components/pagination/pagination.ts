@@ -1,4 +1,10 @@
-import { Component, EventEmitter, Input, Output } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  EventEmitter,
+  Input,
+  Output,
+} from '@angular/core';
 import { IconSvg } from '../icon-svg/icon-svg';
 
 @Component({
@@ -6,6 +12,7 @@ import { IconSvg } from '../icon-svg/icon-svg';
   imports: [IconSvg],
   templateUrl: './pagination.html',
   styleUrl: './pagination.scss',
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class Pagination {
   @Input() count = 1;

@@ -1,4 +1,5 @@
 import {
+  ChangeDetectionStrategy,
   Component,
   ElementRef,
   EventEmitter,
@@ -13,6 +14,7 @@ import {
   imports: [],
   templateUrl: './modal-container.html',
   styleUrl: './modal-container.scss',
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ModalContainer {
   @Input() title = 'Write Review';

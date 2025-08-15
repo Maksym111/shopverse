@@ -1,4 +1,10 @@
-import { Component, EventEmitter, inject, Input } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  EventEmitter,
+  inject,
+  Input,
+} from '@angular/core';
 import { IconSvg } from '../icon-svg/icon-svg';
 import { CommonModule } from '@angular/common';
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
@@ -9,6 +15,7 @@ import { ModalContainer } from '../modal-container/modal-container';
   imports: [IconSvg, CommonModule, ReactiveFormsModule],
   templateUrl: './feedback-form.html',
   styleUrl: './feedback-form.scss',
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class FeedbackForm {
   @Input() modalContainer!: ModalContainer;

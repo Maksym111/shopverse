@@ -1,9 +1,9 @@
 import {
+  ChangeDetectionStrategy,
   Component,
   inject,
   Input,
   OnInit,
-  TemplateRef,
   ViewChild,
   ViewContainerRef,
 } from '@angular/core';
@@ -19,6 +19,7 @@ import { FeedbackForm } from '../feedback-form/feedback-form';
   imports: [Review, IconSvg, Select, FeedbackForm],
   templateUrl: './reviews.html',
   styleUrl: './reviews.scss',
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class Reviews implements OnInit {
   @Input() reviews: ReviewInterface[] = [];
@@ -34,8 +35,8 @@ export class Reviews implements OnInit {
   isLoadMore = true;
 
   selectData = [
-    { label: 'Ascending', value: 'ascending', selected: true },
-    { label: 'Descending', value: 'descending', selected: false },
+    { label: 'Ascending', value: 'ascending', selected: false },
+    { label: 'Descending', value: 'descending', selected: true },
   ];
 
   ngOnInit(): void {

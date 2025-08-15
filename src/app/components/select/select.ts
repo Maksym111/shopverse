@@ -1,5 +1,6 @@
 import { CommonModule } from '@angular/common';
 import {
+  ChangeDetectionStrategy,
   Component,
   EventEmitter,
   HostListener,
@@ -12,6 +13,7 @@ import {
   imports: [CommonModule],
   templateUrl: './select.html',
   styleUrl: './select.scss',
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class Select {
   @Input() values: { label: string; value: string; selected: boolean }[] = [];
@@ -35,7 +37,7 @@ export class Select {
     }
   }
 
-  toggleDropdown(e: Event) {
+  toggleDropdown() {
     this.isOpen = !this.isOpen;
   }
 

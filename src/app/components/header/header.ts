@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { RouterLink } from '@angular/router';
 import { Observable } from 'rxjs';
 import { Breadcrumb } from '../../data/interfaces/breadcrumb.interface';
@@ -11,6 +11,7 @@ import { IconSvg } from '../icon-svg/icon-svg';
   imports: [RouterLink, AsyncPipe, RouterLink, IconSvg],
   templateUrl: './header.html',
   styleUrl: './header.scss',
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class Header {
   isHomePage = true;

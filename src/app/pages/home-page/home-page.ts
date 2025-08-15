@@ -1,34 +1,39 @@
-import { Component, inject, OnInit } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  inject,
+  OnInit,
+} from '@angular/core';
 import { RouterLink } from '@angular/router';
 import { CardProduct } from '../../components/card-product/card-product';
 import { ProductService } from '../../services/product/product';
 import { Product } from '../../data/interfaces/products.interface';
-import { CommonModule } from '@angular/common';
+import { AsyncPipe, CommonModule } from '@angular/common';
+import { map, Observable } from 'rxjs';
 
 @Component({
   selector: 'app-home-page',
-  imports: [RouterLink, CardProduct, CommonModule],
+  imports: [RouterLink, CardProduct, CommonModule, AsyncPipe],
   templateUrl: './home-page.html',
   styleUrl: './home-page.scss',
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class HomePage implements OnInit {
   productService = inject(ProductService);
 
   activeFeturedCategory: string = '';
 
-  products: Product[] = [];
-  featuredProducts: Product[] = [];
+  products$!: Observable<Product[]>;
+  featuredProducts$!: Observable<Product[]>;
 
   ngOnInit(): void {
-    this.productService
+    this.products$ = this.productService
       .getMensShirts({
         limit: 4,
         sortBy: 'minimumOrderQuantity',
         order: 'desc',
       })
-      .subscribe((res) => {
-        this.products = res.products;
-      });
+      .pipe(map((res) => res.products));
 
     this.setFeatureCategory('women');
   }
@@ -39,15 +44,13 @@ export class HomePage implements OnInit {
     this.activeFeturedCategory = categoryName;
 
     if (categoryName === 'women') {
-      this.productService.getWomenDresses({ limit: 4 }).subscribe((res) => {
-        this.featuredProducts = res.products;
-      });
+      this.featuredProducts$ = this.productService
+        .getWomenDresses({ limit: 4 })
+        .pipe(map((res) => res.products));
     } else if (categoryName === 'sport') {
-      this.productService
+      this.featuredProducts$ = this.productService
         .getSportsAccessories({ limit: 4 })
-        .subscribe((res) => {
-          this.featuredProducts = res.products;
-        });
+        .pipe(map((res) => res.products));
     }
   }
 }

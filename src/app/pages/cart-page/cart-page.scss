@@ -1,4 +1,8 @@
 :host {
+  display: block;
+  min-height: 450px;
+  padding: 20px 0 40px;
+
   .container {
     display: grid;
     grid-template-columns: 1fr 340px;
@@ -17,4 +21,36 @@
   flex-direction: column;
   gap: 40px;
   width: 100%;
+}
+
+.cart-order-summary {
+  border-radius: 4px;
+  border: 1px solid var(--light-color);
+  padding: 32px 24px;
+}
+
+.summary-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 15px;
+}
+
+.summary-item-title {
+  font-weight: 500;
+}
+
+.summary-btn {
+  max-width: none;
+  font-weight: 500;
+}
+
+.continue-shopping {
+  display: block;
+  width: fit-content;
+  margin: 0 auto;
+  color: var(--primary-color);
+  font-size: 12px;
+  font-weight: 500;
+  border-bottom: 1px solid var(--primary-color);
 }

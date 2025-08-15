@@ -1,6 +1,6 @@
 <app-category-filter
   (categoriesEmit)="getAllCategoryFilters($event)"
-  [categoryFilters]="allFiltersData?.category"
+  [appliedFilters]="allFiltersData?.category"
 ></app-category-filter>
 
 @if (!isHidden) {
@@ -12,7 +12,7 @@
   Apply
 </button>
 
-} @if(appliedFilters.length){
+} @if(appliedAllFilters?.category?.length) {
 <button type="button" class="btn clear-all-filters" (click)="clearAll()">
   Clear all
 </button>

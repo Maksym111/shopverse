@@ -2,7 +2,7 @@ import { HttpClient, HttpParams } from '@angular/common/http';
 import { inject, Injectable } from '@angular/core';
 import { Products, Product } from '../../data/interfaces/products.interface';
 import { ProductQueryParams } from '../../data/interfaces/productQueryParams.interface';
-import { forkJoin, map } from 'rxjs';
+import { forkJoin, map, shareReplay } from 'rxjs';
 import { CategoryFilterInterf } from '../../data/interfaces/filters.interface';
 
 @Injectable({
@@ -80,7 +80,18 @@ export class ProductService {
   }
 
   getCategoryList() {
-    return this.http.get<string[]>(`${this.baseApiUrl}products/category-list`);
+    return this.http
+      .get<string[]>(`${this.baseApiUrl}products/category-list`)
+      .pipe(
+        map((res) =>
+          res.map((value, index) => ({
+            id: index,
+            value,
+            checked: false,
+          }))
+        ),
+        shareReplay(1)
+      );
   }
 
   getProductsByCategory(categories: CategoryFilterInterf[]) {

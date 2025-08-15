@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component } from '@angular/core';
+import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { FormsModule, NgForm } from '@angular/forms';
 
 @Component({
@@ -7,6 +7,7 @@ import { FormsModule, NgForm } from '@angular/forms';
   imports: [FormsModule, CommonModule],
   templateUrl: './subscribe-form.html',
   styleUrl: './subscribe-form.scss',
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class SubscribeForm {
   inputValue = '';

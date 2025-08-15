@@ -1,7 +1,7 @@
 <p class="search-sub-title mb12">Categories</p>
 
 <ul class="list category-list mb8" [class.short-list]="!isOpenFilter">
-  @for(category of allCategories; track category.id){
+  @for(category of categoriesWithChecked$ | async; track category.id){
   <li class="category-item">
     <label class="category-text">
       <input
@@ -9,7 +9,7 @@
         class="category-name-inp"
         name="category-name"
         [(ngModel)]="category.checked"
-        (change)="chooseCategory($event, category)"
+        (change)="chooseCategory(category)"
       />
       {{category.value}}
     </label>
