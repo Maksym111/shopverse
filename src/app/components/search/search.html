@@ -1,0 +1,14 @@
+<form class="search-form" (ngSubmit)="onSubmit($event)">
+  <button type="submit" class="submit-btn">
+    <img class="search-icon" src="assets/images/search.svg" alt="" />
+  </button>
+
+  <input
+    #searchInput
+    type="text"
+    placeholder="Search products"
+    class="search-input"
+    name="search"
+    [(ngModel)]="inputValue"
+  />
+</form>

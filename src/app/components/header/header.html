@@ -26,13 +26,14 @@
     </nav>
 
     <div class="header-right">
-      <div class="header-search">
-        <img class="search-icon" src="assets/images/search.svg" alt="" />
-        <input type="text" placeholder="Search products" class="search-input" />
-      </div>
+      <app-search></app-search>
+
       <div class="header-cart">
-        <a routerLink="/cart">
+        <a routerLink="/cart" class="link cart-link">
           <img src="assets/images/cart.svg" alt="" class="header-cart-icon" />
+          @if (productsAmount$ | async) {
+          <span class="cart-count-products">{{productsAmount$ | async}}</span>
+          }
         </a>
       </div>
       <div class="header-user-info">

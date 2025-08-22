@@ -1,0 +1,32 @@
+@use "mixins.scss" as mixins;
+
+.search-form {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+
+  padding: 10px 15px;
+  border: 1px solid var(--light-color);
+  border-radius: 6px;
+}
+
+.submit-btn {
+  border: 0;
+}
+
+.search-input {
+  color: var(--primary-color);
+  border: none;
+
+  &:focus-visible {
+    outline: none;
+  }
+
+  &::placeholder {
+    color: var(--placeholder-color);
+  }
+}
+
+.search-icon {
+  @include mixins.width-height(24px);
+}

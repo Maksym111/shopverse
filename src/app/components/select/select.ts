@@ -18,13 +18,7 @@ import {
 export class Select {
   @Input() values: { label: string; value: string; selected: boolean }[] = [];
 
-  @Output() newData = new EventEmitter<
-    {
-      label: string;
-      value: string;
-      selected: boolean;
-    }[]
-  >();
+  @Output() selectedValue = new EventEmitter<string>();
 
   isOpen = false;
 
@@ -45,15 +39,19 @@ export class Select {
     if (option.selected) {
       return;
     }
+
+    let value = '';
+
     this.values = this.values.map((elem) => {
       if (elem.value === option.value) {
         elem.selected = true;
+        value = elem.value;
       } else {
         elem.selected = false;
       }
       return elem;
     });
 
-    this.newData.emit(this.values);
+    this.selectedValue.emit(value);
   }
 }

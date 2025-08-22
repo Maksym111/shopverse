@@ -21,6 +21,6 @@ export class CardProduct implements OnInit {
   linkProduct = '';
 
   ngOnInit(): void {
-    this.linkProduct = `/product/${this.product.id}`;
+    this.linkProduct = `/products/${this.product.id}`;
   }
 }

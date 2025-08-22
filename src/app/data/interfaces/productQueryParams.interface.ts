@@ -4,4 +4,5 @@ export interface ProductQueryParams {
   select?: string;
   sortBy?: string;
   order?: string;
+  q?: string;
 }

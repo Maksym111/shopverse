@@ -38,8 +38,7 @@
 }
 
 .logo {
-  width: 40px;
-  height: 40px;
+  @include mixins.width-height(40px);
 }
 
 .logo-text {
@@ -73,34 +72,9 @@
   gap: 32px;
 }
 
-.header-search {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-
-  padding: 10px 15px;
-  border: 1px solid var(--light-color);
-  border-radius: 6px;
-}
-
-.search-input {
-  color: var(--primary-color);
-  border: none;
-
-  &:focus-visible {
-    outline: none;
-  }
-
-  &::placeholder {
-    color: var(--placeholder-color);
-  }
-}
-
-.search-icon,
 .header-cart-icon,
 .header-user-info-icon {
-  width: 24px;
-  height: 24px;
+  @include mixins.width-height(24px);
 }
 
 .breadcrumbs {
@@ -153,6 +127,26 @@
 
 .breadcrumb-home {
   color: var(--regular-color);
-  width: 18px;
-  height: 18px;
+  @include mixins.width-height(18px);
+}
+
+.cart-link {
+  position: relative;
+}
+
+.cart-count-products {
+  position: absolute;
+  top: 65%;
+  left: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  @include mixins.fsize-fweight-lheight(12, 500);
+
+  @include mixins.width-height(20px);
+
+  border-radius: 50%;
+  background-color: red;
+  color: white;
 }

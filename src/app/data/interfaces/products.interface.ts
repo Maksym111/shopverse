@@ -7,6 +7,11 @@ export interface Products {
   limit: number;
 }
 
+export interface ProductResponse {
+  products: Product[];
+  total: number;
+}
+
 export interface Product {
   id: number;
   title: string;

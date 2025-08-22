@@ -1,4 +1,4 @@
-import { Injectable, OnInit } from '@angular/core';
+import { Injectable } from '@angular/core';
 import { CartProductInterf } from '../data/interfaces/cartProduct.interface';
 import { BehaviorSubject } from 'rxjs';
 import { Product } from '../data/interfaces/products.interface';
@@ -13,17 +13,24 @@ export class CartService {
     this.cart
   );
   private totalPriceSubject = new BehaviorSubject<number>(0);
+  private totalAmountProductsSubject = new BehaviorSubject<number>(0);
 
   cart$ = this.cartSubject.asObservable();
   totalPrice$ = this.totalPriceSubject.asObservable();
+  totalAmountProducts$ = this.totalAmountProductsSubject.asObservable();
 
   constructor() {
     const getCartFromLocStor = localStorage.getItem('cart');
     if (getCartFromLocStor) {
       this.cart = JSON.parse(getCartFromLocStor);
-      this.cartSubject.next(this.cart);
-      this.totalPriceSubject.next(this.getTotalPrice());
+      this.updateSubjects();
     }
+  }
+
+  updateSubjects() {
+    this.cartSubject.next(this.cart);
+    this.totalPriceSubject.next(this.getTotalPrice());
+    this.totalAmountProductsSubject.next(this.getTotalAmountProducts());
   }
 
   addToCart(product: Product, amount?: number) {
@@ -41,8 +48,7 @@ export class CartService {
       this.cart.push(cartProduct);
     }
 
-    this.cartSubject.next(this.cart);
-    this.totalPriceSubject.next(this.getTotalPrice());
+    this.updateSubjects();
     localStorage.setItem('cart', JSON.stringify(this.cart));
   }
 
@@ -55,16 +61,13 @@ export class CartService {
       return;
     }
 
-    this.cartSubject.next(this.cart);
-
-    this.totalPriceSubject.next(this.getTotalPrice());
+    this.updateSubjects();
     localStorage.setItem('cart', JSON.stringify(this.cart));
   }
 
   removeFromCart(id: number) {
     this.cart = this.cart.filter((elem) => elem.product.id !== id);
-    this.cartSubject.next(this.cart);
-    this.totalPriceSubject.next(this.getTotalPrice());
+    this.updateSubjects();
     localStorage.setItem('cart', JSON.stringify(this.cart));
   }
 
@@ -74,8 +77,7 @@ export class CartService {
 
   clearCart() {
     this.cart = [];
-    this.cartSubject.next(this.cart);
-    this.totalPriceSubject.next(0);
+    this.updateSubjects();
     localStorage.removeItem('cart');
   }
 
@@ -84,5 +86,9 @@ export class CartService {
       (acc, elem) => acc + elem.product.price * elem.quantity,
       0
     );
+  }
+
+  getTotalAmountProducts() {
+    return this.cart.reduce((acc, item) => acc + item.quantity, 0);
   }
 }

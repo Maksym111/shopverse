@@ -117,4 +117,12 @@ export class ProductService {
       })
     );
   }
+
+  getProductsBySearch(sort: ProductQueryParams = {}) {
+    const params = this.setParams(sort);
+
+    return this.http.get<Products>(`${this.baseApiUrl}products/search`, {
+      params,
+    });
+  }
 }

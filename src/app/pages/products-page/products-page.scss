@@ -37,7 +37,7 @@
 
 .result-count {
   color: var(--regular-color);
-  @include mixins.fsize-fweight-lheight();
+  @include mixins.fsize-fweight-lheight(14, 500, 1.3);
 }
 
 .select-wrapper {
@@ -49,4 +49,9 @@
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   gap: 32px;
+}
+
+.searched-word {
+  color: var(--spec-word-color);
+  font-weight: 700;
 }

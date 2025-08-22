@@ -1,16 +1,16 @@
 <div class="container">
   <main class="main-wrap">
-    <app-filters (filtersEmitted)="getFilters($event)"></app-filters>
+    <app-filters (filtersEmitted)="setFilters($event)"></app-filters>
 
     <div class="search-wrapper">
-      @if (appliedFilters.length) {
+      @if ((filters$ | async)?.category?.length) {
       <div class="applied-filters-wrapper mb24">
         <p class="search-sub-title mb12">Applied Filters:</p>
 
         <ul class="list applied-filters">
-          @for(filter of appliedFilters; track filter){
+          @for(category of (filters$ | async)?.category; track category.id){
           <li class="applied-filters-item">
-            <span class="applied-filters-text">{{filter.value}}</span>
+            <span class="applied-filters-text">{{category.value}}</span>
           </li>
           }
         </ul>
@@ -18,10 +18,18 @@
       }
 
       <div class="result-info-wrapper mb24">
+        @if(!(searchQuery$ | async)){
         <p class="result-count">
-          Showing {{currentSetProducts}}-{{pageProduct * 9}} of
-          {{totalProductsNumb}} results.
+          Showing {{ currentRange().firstItem }}-{{ currentRange().lastItem }}
+          of {{ totalProductsNumb() }} results.
         </p>
+        } @else {
+        <p class="result-count">
+          Showing {{ currentRange().firstItem }}-{{ currentRange().lastItem }}
+          of {{ totalProductsNumb() }} results for
+          <span class="searched-word"> "{{ searchQuery$ | async }}" </span>.
+        </p>
+        }
 
         <div class="select-wrapper">
           <div class="select-container">
@@ -29,14 +37,14 @@
             <svg icon="arrow" class="select-arrow"></svg>
             <app-select
               [values]="selectSort"
-              (newData)="getSelectedNewData($event)"
+              (selectedValue)="setSort($event)"
             ></app-select>
           </div>
         </div>
       </div>
 
       <ul class="list product-list mb64">
-        @for(product of productList; track product.id) {
+        @for(product of (products$ | async); track product.id) {
         <li>
           <app-card-product [product]="product"></app-card-product>
         </li>
@@ -45,11 +53,11 @@
     </div>
   </main>
 
-  @if(totalProductsNumb > pageProduct){
+  @if(paginationCount() > 1 && !haveFilters){
   <app-pagination
-    [currentPage]="pageProduct"
-    [count]="getPaginationNumbs()"
-    (pageEmmiter)="getCurrentPage($event)"
+    [currentPage]="pageProduct()"
+    [count]="paginationCount()"
+    (pageEmmiter)="setPage($event)"
   ></app-pagination>
   }
 </div>

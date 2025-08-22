@@ -44,14 +44,17 @@ export class Reviews implements OnInit {
     this.sortReviewsBy();
   }
 
-  getSelectedNewData(
-    data: { label: string; value: string; selected: boolean }[]
-  ) {
-    this.selectData = data;
+  getSelectedNewData(value: string) {
+    this.selectData = this.selectData.map((elem) => {
+      elem.selected = false;
+      if (elem.value === value) {
+        elem.selected = true;
+      }
 
-    const sortName = this.selectData.find((elem) => elem.selected);
+      return elem;
+    });
 
-    this.sortReviewsBy(sortName?.value);
+    this.sortReviewsBy(value);
   }
 
   addReviewsPerPage(prevCount: number = 0) {

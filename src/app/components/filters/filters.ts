@@ -46,6 +46,17 @@ export class Filters {
   }
 
   apllyFilters() {
+    const isNoValues = this.allFiltersData
+      ? Object.values(this.allFiltersData).every(
+          (arr) => !arr || arr.length === 0
+        )
+      : true;
+
+    if (isNoValues) {
+      this.clearAll();
+      return;
+    }
+
     this.appliedAllFilters = { ...this.allFiltersData };
 
     this.filtersEmitted.emit({ ...this.appliedAllFilters });
