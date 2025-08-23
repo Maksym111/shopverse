@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, inject } from '@angular/core';
+import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { AuthService } from '../../core/auth';
 
@@ -8,6 +8,7 @@ import { AuthService } from '../../core/auth';
   imports: [ReactiveFormsModule, CommonModule],
   templateUrl: './login-page.html',
   styleUrl: './login-page.scss',
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class LoginPage {
   fb = inject(FormBuilder);

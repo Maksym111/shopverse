@@ -1,48 +1,50 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  inject,
+  signal,
+} from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Product } from '../../data/interfaces/products.interface';
 import { CommonModule, CurrencyPipe, UpperCasePipe } from '@angular/common';
 import { IconSvg } from '../../components/icon-svg/icon-svg';
 import { Reviews } from '../../components/reviews/reviews';
 import { Tabs } from '../../data/types/tabs.type';
-import { Subscription } from 'rxjs';
+import { map } from 'rxjs';
 import { CartService } from '../../services/cart-service';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { toSignal } from '@angular/core/rxjs-interop';
 
 @Component({
   selector: 'app-product-page',
   imports: [CurrencyPipe, UpperCasePipe, IconSvg, Reviews, CommonModule],
   templateUrl: './product-page.html',
   styleUrl: './product-page.scss',
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class ProductPage implements OnInit, OnDestroy {
-  subscriptionProduct!: Subscription;
-  product: Product | null = null;
-  countProduct = 1;
+export class ProductPage {
+  private route = inject(ActivatedRoute);
+  private cartService = inject(CartService);
+  private snackBar = inject(MatSnackBar);
+
+  product = toSignal(
+    this.route.data.pipe(map((data) => data['product'] as Product)),
+    { initialValue: null }
+  );
+
+  countProduct = signal(1);
 
   tabName: Tabs = 'reviews';
 
-  constructor(
-    private route: ActivatedRoute,
-    private cartService: CartService,
-    private snackBar: MatSnackBar
-  ) {}
-
-  ngOnInit(): void {
-    this.subscriptionProduct = this.route.data.subscribe((data) => {
-      this.product = data['product'];
-    });
-  }
-
   addCount() {
-    this.countProduct += 1;
+    this.countProduct.update((val) => val + 1);
   }
 
   reduceCount() {
-    if (this.countProduct <= 1) {
+    if (this.countProduct() <= 1) {
       return;
     }
-    this.countProduct -= 1;
+    this.countProduct.update((val) => val - 1);
   }
 
   onTabClick(valueBtn: Tabs) {
@@ -51,13 +53,11 @@ export class ProductPage implements OnInit, OnDestroy {
     }
   }
 
-  ngOnDestroy(): void {
-    this.subscriptionProduct.unsubscribe();
-  }
-
   addToCartBtn() {
-    if (this.product) {
-      this.cartService.addToCart(this.product, this.countProduct);
+    const product = this.product();
+
+    if (product) {
+      this.cartService.addToCart(product, this.countProduct());
       this.snackBar.open('Product added to the cart!', 'Ok', {
         horizontalPosition: 'end',
         verticalPosition: 'top',

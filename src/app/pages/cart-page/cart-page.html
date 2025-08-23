@@ -3,8 +3,8 @@
     <h3 class="h3 cart-items-title mb48">Your cart</h3>
 
     <ul class="list cart-order-list">
-      @if(cartProducts.length){ @for(product of cartProducts; track
-      product.product.id){
+      @if((cartProducts$ | async)?.length){ @for(product of (cartProducts$ |
+      async); track product.product.id){
       <li>
         <app-cart-product [cartProduct]="product"></app-cart-product>
       </li>
@@ -17,7 +17,7 @@
   <div class="cart-order-summary">
     <div class="summary-item mb12">
       <span class="summary-item-title">Subtotal</span>
-      <span class="price">{{allProductsPrice | currency}}</span>
+      <span class="price">{{allProductsPrice$ | async | currency}}</span>
     </div>
 
     <div class="summary-item mb12">
@@ -34,7 +34,7 @@
 
     <div class="summary-item mb32">
       <span class="summary-item-title">Total</span>
-      <span class="price">{{totalPrice | currency}}</span>
+      <span class="price">{{totalPrice$ | async | currency}}</span>
     </div>
 
     <button type="button" class="btn summary-btn mb32">Checkout</button>
