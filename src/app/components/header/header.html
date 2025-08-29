@@ -1,6 +1,6 @@
 <div class="top-header">
   <p class="text">Get 25% OFF on your first order.</p>
-  <a href="" class="link header-link">Order Now</a>
+  <!-- <a href="" class="link header-link">Order Now</a> -->
 </div>
 
 <div class="container">
@@ -16,7 +16,7 @@
         <li class="item">
           <a [routerLink]="nav.path" class="link navigation-link">
             <span class="text">{{ nav.name }}</span>
-            @if(nav.sublinks){
+            @if(nav.sublinks?.length){
             <span class="arrow"></span>
             }
           </a>
@@ -37,13 +37,20 @@
         </a>
       </div>
       <div class="header-user-info">
-        <a routerLink="/profile">
+        @if(isLoggedIn$ | async){
+        <!-- <a routerLink="/profile">
           <img
             src="assets/images/user-icon.svg"
             alt=""
             class="header-user-info-icon"
           />
-        </a>
+        </a> -->
+        <button type="button" class="logout-btn" (click)="onLogout()">
+          Log out
+        </button>
+        } @else {
+        <a routerLink="/login" class="login-link">Log in</a>
+        }
       </div>
     </div>
   </div>

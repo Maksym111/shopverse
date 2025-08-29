@@ -4,7 +4,11 @@
   {{rating}} <span class="count-reviews">— {{reviews.length}} Reviews</span>
 </p>
 
+@if(isLoggedIn | async){
 <button class="comment-btn mb24" (click)="openModal()">Write a review</button>
+} @else {
+<p class="text">Only registered users can post comments.</p>
+}
 
 <div class="select-wrapper mb24">
   <div class="select-container">

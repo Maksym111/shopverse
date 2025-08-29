@@ -13,10 +13,13 @@ import { IconSvg } from '../icon-svg/icon-svg';
 import { Select } from '../select/select';
 import { ModalService } from '../../services/modal-service';
 import { FeedbackForm } from '../feedback-form/feedback-form';
+import { AuthService } from '../../core/auth';
+import { Observable } from 'rxjs';
+import { AsyncPipe } from '@angular/common';
 
 @Component({
   selector: 'app-reviews',
-  imports: [Review, IconSvg, Select, FeedbackForm],
+  imports: [Review, IconSvg, Select, FeedbackForm, AsyncPipe],
   templateUrl: './reviews.html',
   styleUrl: './reviews.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
@@ -29,10 +32,12 @@ export class Reviews implements OnInit {
   viewContainerRef!: ViewContainerRef;
 
   modalService = inject(ModalService);
+  authService = inject(AuthService);
 
   reviewsPerPage: ReviewInterface[] = [];
 
   isLoadMore = true;
+  isLoggedIn!: Observable<boolean>;
 
   selectData = [
     { label: 'Ascending', value: 'ascending', selected: false },
@@ -42,6 +47,7 @@ export class Reviews implements OnInit {
   ngOnInit(): void {
     this.addReviewsPerPage();
     this.sortReviewsBy();
+    this.isLoggedIn = this.authService.isAuth$;
   }
 
   getSelectedNewData(value: string) {

@@ -1,6 +1,12 @@
-import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
-import { Router, RouterLink } from '@angular/router';
+import {
+  ChangeDetectionStrategy,
+  ChangeDetectorRef,
+  Component,
+  OnInit,
+} from '@angular/core';
+import { NavigationEnd, Router, RouterLink } from '@angular/router';
 import { SubscribeForm } from '../subscribe-form/subscribe-form';
+import { filter } from 'rxjs';
 
 @Component({
   selector: 'app-footer',
@@ -13,11 +19,17 @@ export class Footer implements OnInit {
   currenYear = new Date().getFullYear();
   isSpecUrl = false;
 
-  constructor(private route: Router) {}
+  constructor(private router: Router, private cdr: ChangeDetectorRef) {}
 
   ngOnInit(): void {
-    if (this.route.url === '/login' || this.route.url === '/cart') {
-      this.isSpecUrl = true;
-    }
+    this.router.events
+      .pipe(filter((e) => e instanceof NavigationEnd))
+      .subscribe((e: any) => {
+        this.isSpecUrl = e.url === '/login' || this.router.url === '/cart';
+        this.cdr.markForCheck();
+      });
+
+    this.isSpecUrl =
+      this.router.url === '/login' || this.router.url === '/cart';
   }
 }

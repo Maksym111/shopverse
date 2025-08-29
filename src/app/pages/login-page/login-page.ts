@@ -2,6 +2,8 @@ import { CommonModule } from '@angular/common';
 import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { AuthService } from '../../core/auth';
+import { Router } from '@angular/router';
+import { switchMap, tap } from 'rxjs';
 
 @Component({
   selector: 'app-login-page',
@@ -13,6 +15,7 @@ import { AuthService } from '../../core/auth';
 export class LoginPage {
   fb = inject(FormBuilder);
   authService = inject(AuthService);
+  router = inject(Router);
 
   form = this.fb.group({
     username: ['', [Validators.required]],
@@ -31,8 +34,12 @@ export class LoginPage {
       return;
     }
 
-    this.authService.login(this.form.value).subscribe((res) => {
-      console.log(res);
-    });
+    this.authService
+      .login(this.form.value)
+      .pipe(
+        tap(console.log),
+        switchMap(() => this.router.navigate(['/']))
+      )
+      .subscribe();
   }
 }

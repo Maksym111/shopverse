@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { inject, Injectable } from '@angular/core';
-import { catchError, tap, throwError } from 'rxjs';
+import { BehaviorSubject, catchError, tap, throwError } from 'rxjs';
 import {
   RefreshTokenResponse,
   TokenResponse,
@@ -21,7 +21,10 @@ export class AuthService {
   token: string | null = null;
   refreshToken: string | null = null;
 
-  isAuth() {
+  isAuthSubject = new BehaviorSubject<boolean>(this.hasToken());
+  isAuth$ = this.isAuthSubject.asObservable();
+
+  hasToken() {
     if (!this.token) {
       this.token = this.cookie.get('token');
       this.refreshToken = this.cookie.get('refreshToken');
@@ -52,6 +55,8 @@ export class AuthService {
 
     this.cookie.set('token', this.token);
     this.cookie.set('refreshToken', this.refreshToken);
+
+    this.isAuthSubject.next(true);
   }
 
   logout() {
@@ -59,6 +64,8 @@ export class AuthService {
     this.refreshToken = null;
     this.cookie.deleteAll();
     this.route.createUrlTree(['/login']);
+
+    this.isAuthSubject.next(false);
   }
 
   refreshAuthToken() {

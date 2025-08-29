@@ -150,3 +150,19 @@
   background-color: red;
   color: white;
 }
+
+.login-link {
+  text-decoration: none;
+
+  &:hover {
+    text-decoration: underline;
+  }
+}
+
+.logout-btn {
+  border: none;
+
+  &:hover {
+    text-decoration: underline;
+  }
+}

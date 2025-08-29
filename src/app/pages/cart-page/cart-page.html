@@ -22,7 +22,11 @@
 
     <div class="summary-item mb12">
       <span class="summary-item-title">Shipping: </span>
+      @if((shipping$ | async) === 'Free'){
       <span class="price">Free</span>
+      } @else {
+      <span class="price">{{shipping$ | async | currency }}</span>
+      }
     </div>
 
     <div class="summary-item mb24">
@@ -39,6 +43,6 @@
 
     <button type="button" class="btn summary-btn mb32">Checkout</button>
 
-    <a class="continue-shopping">Continue Shopping</a>
+    <a class="continue-shopping" routerLink="/products">Continue Shopping</a>
   </div>
 </div>

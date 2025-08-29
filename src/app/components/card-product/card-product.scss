@@ -61,3 +61,19 @@
 .product-price {
   color: var(--text-color);
 }
+
+.to-cart {
+  padding: 7px;
+  margin-left: auto;
+  border-radius: 50%;
+  border: 1px solid var(--placeholder-color);
+  transition: transform var(--transition-standart);
+
+  .cart-icon {
+    width: 15px;
+  }
+
+  &:hover {
+    transform: scale(1.1);
+  }
+}

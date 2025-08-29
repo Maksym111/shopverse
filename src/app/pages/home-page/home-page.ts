@@ -9,7 +9,7 @@ import { CardProduct } from '../../components/card-product/card-product';
 import { ProductService } from '../../services/product/product';
 import { Product } from '../../data/interfaces/products.interface';
 import { AsyncPipe, CommonModule } from '@angular/common';
-import { map, Observable } from 'rxjs';
+import { map, Observable, shareReplay } from 'rxjs';
 
 @Component({
   selector: 'app-home-page',
@@ -25,6 +25,8 @@ export class HomePage implements OnInit {
 
   products$!: Observable<Product[]>;
   featuredProducts$!: Observable<Product[]>;
+
+  private cache = new Map<string, Observable<Product[]>>();
 
   ngOnInit(): void {
     this.products$ = this.productService
@@ -43,14 +45,41 @@ export class HomePage implements OnInit {
 
     this.activeFeturedCategory = categoryName;
 
-    if (categoryName === 'women') {
-      this.featuredProducts$ = this.productService
-        .getWomenDresses({ limit: 4 })
-        .pipe(map((res) => res.products));
-    } else if (categoryName === 'sport') {
-      this.featuredProducts$ = this.productService
-        .getSportsAccessories({ limit: 4 })
-        .pipe(map((res) => res.products));
+    if (this.cache.has(categoryName)) {
+      this.featuredProducts$ = this.cache.get(categoryName)!;
+      return;
     }
+
+    const values = this.getValuesFromCategory(categoryName)!;
+
+    this.cache.set(categoryName, values);
+    this.featuredProducts$ = values;
+  }
+
+  getValuesFromCategory(categoryName: string) {
+    let obs$: Observable<Product[]>;
+
+    switch (categoryName) {
+      case 'women': {
+        obs$ = this.productService
+          .getWomenDresses({ limit: 4 })
+          .pipe(shareReplay(1));
+
+        break;
+      }
+
+      case 'sport': {
+        obs$ = this.productService
+          .getSportsAccessories({ limit: 4 })
+          .pipe(shareReplay(1));
+
+        break;
+      }
+
+      default:
+        return;
+    }
+
+    return obs$;
   }
 }

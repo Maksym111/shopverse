@@ -15,6 +15,15 @@
     <span class="circled">IN STOCK</span>
 
     <span class="product-price">{{product.price | currency}}</span>
+
+    <button
+      type="button"
+      class="to-cart"
+      title="Add to cart"
+      (click)="addToCart()"
+    >
+      <img src="assets/images/cart.svg" alt="" class="cart-icon" />
+    </button>
   </div>
 </div>
 }

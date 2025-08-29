@@ -2,7 +2,7 @@ import { HttpClient, HttpParams } from '@angular/common/http';
 import { inject, Injectable } from '@angular/core';
 import { Products, Product } from '../../data/interfaces/products.interface';
 import { ProductQueryParams } from '../../data/interfaces/productQueryParams.interface';
-import { forkJoin, map, shareReplay } from 'rxjs';
+import { catchError, forkJoin, map, of, shareReplay } from 'rxjs';
 import { CategoryFilterInterf } from '../../data/interfaces/filters.interface';
 
 @Injectable({
@@ -64,19 +64,33 @@ export class ProductService {
   getWomenDresses(sort: ProductQueryParams = {}) {
     const params = this.setParams(sort);
 
-    return this.http.get<Products>(
-      `${this.baseApiUrl}products/category/womens-dresses`,
-      { params }
-    );
+    return this.http
+      .get<Products>(`${this.baseApiUrl}products/category/womens-dresses`, {
+        params,
+      })
+      .pipe(
+        map((res) => res?.products ?? []),
+        catchError((err) => {
+          console.log('getWomenDresses failed', err);
+          return of([]);
+        })
+      );
   }
 
   getSportsAccessories(sort: ProductQueryParams = {}) {
     const params = this.setParams(sort);
 
-    return this.http.get<Products>(
-      `${this.baseApiUrl}products/category/sports-accessories`,
-      { params }
-    );
+    return this.http
+      .get<Products>(`${this.baseApiUrl}products/category/sports-accessories`, {
+        params,
+      })
+      .pipe(
+        map((res) => res?.products ?? []),
+        catchError((err) => {
+          console.log('getSportsAccessories failed', err);
+          return of([]);
+        })
+      );
   }
 
   getCategoryList() {

@@ -6,6 +6,7 @@ import { ProductResolverService } from './services/product/product-resolve';
 import { ProductsPage } from './pages/products-page/products-page';
 import { LoginPage } from './pages/login-page/login-page';
 import { CartPage } from './pages/cart-page/cart-page';
+import { canActivateAuth } from './core/guards/auth.guard';
 
 export const routes: Routes = [
   {
@@ -27,7 +28,11 @@ export const routes: Routes = [
         resolve: { product: ProductResolverService },
       },
       { path: 'cart', component: CartPage, data: { breadcrumb: 'Cart' } },
-      { path: 'login', component: LoginPage, data: { breadcrumb: 'Login' } },
+      {
+        path: 'login',
+        component: LoginPage,
+        data: { breadcrumb: 'Login' },
+      },
     ],
   },
   { path: '**', redirectTo: '/' },
