@@ -1,10 +1,9 @@
-import { CommonModule } from '@angular/common';
 import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { FormsModule, NgForm } from '@angular/forms';
 
 @Component({
   selector: 'app-subscribe-form',
-  imports: [FormsModule, CommonModule],
+  imports: [FormsModule],
   templateUrl: './subscribe-form.html',
   styleUrl: './subscribe-form.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,

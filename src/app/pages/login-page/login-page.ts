@@ -1,4 +1,3 @@
-import { CommonModule } from '@angular/common';
 import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { AuthService } from '../../core/auth';
@@ -7,7 +6,7 @@ import { switchMap, tap } from 'rxjs';
 
 @Component({
   selector: 'app-login-page',
-  imports: [ReactiveFormsModule, CommonModule],
+  imports: [ReactiveFormsModule],
   templateUrl: './login-page.html',
   styleUrl: './login-page.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,

@@ -6,13 +6,13 @@ import {
   Input,
 } from '@angular/core';
 import { IconSvg } from '../icon-svg/icon-svg';
-import { CommonModule } from '@angular/common';
+import { CommonModule, NgClass } from '@angular/common';
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { ModalContainer } from '../modal-container/modal-container';
 
 @Component({
   selector: 'app-feedback-form',
-  imports: [IconSvg, CommonModule, ReactiveFormsModule],
+  imports: [IconSvg, ReactiveFormsModule, NgClass],
   templateUrl: './feedback-form.html',
   styleUrl: './feedback-form.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
@@ -44,10 +44,6 @@ export class FeedbackForm {
 
   getCountStars(): number[] {
     return Array.from({ length: 5 }, (_, i) => i);
-  }
-
-  trackByIndex(index: number): number {
-    return index;
   }
 
   onStarClick(e: Event) {

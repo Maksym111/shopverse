@@ -1,4 +1,4 @@
-import { CommonModule } from '@angular/common';
+import { NgClass } from '@angular/common';
 import {
   ChangeDetectionStrategy,
   Component,
@@ -10,7 +10,7 @@ import {
 
 @Component({
   selector: 'app-select',
-  imports: [CommonModule],
+  imports: [NgClass],
   templateUrl: './select.html',
   styleUrl: './select.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,

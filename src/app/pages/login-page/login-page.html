@@ -16,9 +16,9 @@
       placeholder="example@media.com"
     />
 
-    <p *ngIf="username?.touched && !username?.value" class="form-field-error">
-      Login is required
-    </p>
+    @if(username?.touched && !username?.value){
+    <p class="form-field-error">Login is required</p>
+    }
   </div>
 
   <div class="form-field-wrapper">

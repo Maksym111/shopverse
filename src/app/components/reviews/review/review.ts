@@ -1,12 +1,12 @@
 import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
 import { ReviewInterface } from '../../../data/interfaces/review.interface';
 import { IconSvg } from '../../icon-svg/icon-svg';
-import { CommonModule, DatePipe } from '@angular/common';
+import { DatePipe, NgClass } from '@angular/common';
 import { FirstLettersPipe } from '../../../pipes/first-letters-pipe';
 
 @Component({
   selector: 'app-review',
-  imports: [IconSvg, DatePipe, CommonModule, FirstLettersPipe],
+  imports: [IconSvg, DatePipe, NgClass, FirstLettersPipe],
   templateUrl: './review.html',
   styleUrl: './review.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,

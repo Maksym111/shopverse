@@ -9,9 +9,11 @@
     email
   />
 
-  <p class="errorMsg" *ngIf="errorMsg">
+  @if(errorMsg){
+  <p class="errorMsg">
     <span class="error-text">Please enter a valid email address.</span>
   </p>
+  }
 
   <button type="submit" class="btn subscribe-btn">Subscribe</button>
 </form>

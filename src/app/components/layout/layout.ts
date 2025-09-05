@@ -3,12 +3,12 @@ import { Header } from '../header/header';
 import { RouterOutlet } from '@angular/router';
 import { Footer } from '../footer/footer';
 import { Spinner } from '../spinner/spinner';
-import { AsyncPipe, CommonModule } from '@angular/common';
+import { AsyncPipe } from '@angular/common';
 import { LoadingService } from '../../services/loading-service';
 
 @Component({
   selector: 'app-layout',
-  imports: [Header, RouterOutlet, Footer, Spinner, AsyncPipe, CommonModule],
+  imports: [Header, RouterOutlet, Footer, Spinner, AsyncPipe],
   templateUrl: './layout.html',
   styleUrl: './layout.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,

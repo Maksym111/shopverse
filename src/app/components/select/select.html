@@ -1,5 +1,7 @@
 <div class="select" (click)="toggleDropdown()" onkeydown>
-  <ul class="list select-list" *ngIf="isOpen">
+  @if(isOpen){
+
+  <ul class="list select-list">
     @for(optValue of values; track optValue.value){
     <li
       [ngClass]="{'option': true, 'selected': optValue.selected}"
@@ -10,4 +12,5 @@
     </li>
     }
   </ul>
+  }
 </div>

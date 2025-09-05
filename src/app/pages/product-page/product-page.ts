@@ -6,7 +6,12 @@ import {
 } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Product } from '../../data/interfaces/products.interface';
-import { CommonModule, CurrencyPipe, UpperCasePipe } from '@angular/common';
+import {
+  CommonModule,
+  CurrencyPipe,
+  NgClass,
+  UpperCasePipe,
+} from '@angular/common';
 import { IconSvg } from '../../components/icon-svg/icon-svg';
 import { Reviews } from '../../components/reviews/reviews';
 import { Tabs } from '../../data/types/tabs.type';
@@ -17,7 +22,7 @@ import { toSignal } from '@angular/core/rxjs-interop';
 
 @Component({
   selector: 'app-product-page',
-  imports: [CurrencyPipe, UpperCasePipe, IconSvg, Reviews, CommonModule],
+  imports: [CurrencyPipe, UpperCasePipe, IconSvg, Reviews, NgClass],
   templateUrl: './product-page.html',
   styleUrl: './product-page.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,

@@ -2,8 +2,9 @@
 <router-outlet></router-outlet>
 <app-footer></app-footer>
 
-<ng-container *ngIf="isLoading$ | async as isLoading">
-  <div *ngIf="isLoading" class="spinner-wrapper">
-    <app-spinner></app-spinner>
-  </div>
-</ng-container>
+@if(isLoading$ | async){
+<div class="spinner-wrapper">
+  <app-spinner></app-spinner>
+</div>
+
+}

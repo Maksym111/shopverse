@@ -8,12 +8,12 @@ import { RouterLink } from '@angular/router';
 import { CardProduct } from '../../components/card-product/card-product';
 import { ProductService } from '../../services/product/product';
 import { Product } from '../../data/interfaces/products.interface';
-import { AsyncPipe, CommonModule } from '@angular/common';
+import { AsyncPipe, NgClass } from '@angular/common';
 import { map, Observable, shareReplay } from 'rxjs';
 
 @Component({
   selector: 'app-home-page',
-  imports: [RouterLink, CardProduct, CommonModule, AsyncPipe],
+  imports: [RouterLink, CardProduct, NgClass, AsyncPipe],
   templateUrl: './home-page.html',
   styleUrl: './home-page.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,

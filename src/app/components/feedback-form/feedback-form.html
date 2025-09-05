@@ -9,18 +9,11 @@
       formControlName="email"
     />
 
-    <p
-      *ngIf="email?.touched && !email?.value; else incorrectEmail"
-      class="form-field-error"
-    >
-      Email is required
-    </p>
-
-    <ng-template #incorrectEmail>
-      <ng-content *ngIf="email?.invalid && email?.value && email?.touched">
-        <p class="form-field-error">Write correct email</p>
-      </ng-content>
-    </ng-template>
+    @if (email?.touched) { @if (email?.errors?.['required']) {
+    <p class="form-field-error">Email is required</p>
+    } @else if (email?.errors?.['email']) {
+    <p class="form-field-error">Write correct email</p>
+    } }
   </div>
 
   <div class="form-field-wrapper">
@@ -33,20 +26,11 @@
       formControlName="fullName"
     />
 
-    <p
-      *ngIf="fullName?.touched && !fullName?.value; else incorrectFullName"
-      class="form-field-error"
-    >
-      Full name is required
-    </p>
-
-    <ng-template #incorrectFullName>
-      <ng-content
-        *ngIf="fullName?.invalid && fullName?.value && fullName?.touched"
-      >
-        <p class="form-field-error">Full name must be more than 2 symbols</p>
-      </ng-content>
-    </ng-template>
+    @if (fullName?.touched) { @if (fullName?.errors?.['required']) {
+    <p class="form-field-error">Full name is required</p>
+    } @else if (fullName?.invalid && fullName?.value) {
+    <p class="form-field-error">Full name must be more than 2 symbols</p>
+    } }
   </div>
 
   <div class="form-field-wrapper">
@@ -64,11 +48,8 @@
     <p class="feedback-label">Rate the product</p>
 
     <ul class="list stars">
-      <!-- @for(star of getCountStars(); track star){ -->
-      <li
-        class="star-item"
-        *ngFor="let star of getCountStars(); trackBy: trackByIndex"
-      >
+      @for(star of getCountStars(); track $index){
+      <li class="star-item">
         <input
           type="radio"
           class="star-radio"
@@ -83,15 +64,12 @@
           [ngClass]="{'star': !isFilled, 'filledStar': isFilled}"
         ></svg>
       </li>
-      <!-- } -->
+      }
     </ul>
 
-    <p
-      *ngIf="rate?.touched && rate?.invalid && form.invalid"
-      class="form-field-error"
-    >
-      Rate is required
-    </p>
+    @if(rate?.touched && rate?.invalid && form.invalid){
+    <p class="form-field-error">Rate is required</p>
+    }
   </div>
 
   <button type="submit" class="btn feedback-submit">Submit Your Review</button>
