@@ -1,4 +1,4 @@
-@if(product(); as product){
+@let isFavorite = (isFavorite$ | async); @if(product(); as product){
 <section class="customizing-section mb48">
   <div class="container">
     <div class="customizing-card">
@@ -55,9 +55,16 @@
         <div class="adding-cart-wrapper">
           <button class="btn" (click)="addToCartBtn()">Add to cart</button>
 
-          <!-- <button class="whish-btn">
-              <svg icon="heart" class="whish-icon"></svg>
-            </button> -->
+          <button
+            class="whish-btn"
+            (click)="!isFavorite ? addFavorite() : removeFavorite()"
+          >
+            <svg
+              icon="heart"
+              class="whish-icon"
+              [appFavorite]="(isFavorite$ | async)"
+            ></svg>
+          </button>
         </div>
 
         <p class="free-text">— Free shipping on orders $100+</p>

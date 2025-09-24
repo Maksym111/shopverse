@@ -1,10 +1,12 @@
+@let cartProducts = cartProducts$ | async; @let shipping = shipping$ | async;
+
 <div class="container">
   <div class="cart-order-items">
     <h3 class="h3 cart-items-title mb48">Your cart</h3>
 
     <ul class="list cart-order-list">
-      @if((cartProducts$ | async)?.length){ @for(product of (cartProducts$ |
-      async); track product.product.id){
+      @if(cartProducts?.length){ @for(product of cartProducts; track
+      product.product.id){
       <li>
         <app-cart-product [cartProduct]="product"></app-cart-product>
       </li>
@@ -22,10 +24,10 @@
 
     <div class="summary-item mb12">
       <span class="summary-item-title">Shipping: </span>
-      @if((shipping$ | async) === 'Free'){
+      @if(shipping === 'Free'){
       <span class="price">Free</span>
       } @else {
-      <span class="price">{{shipping$ | async | currency }}</span>
+      <span class="price">{{shipping | currency }}</span>
       }
     </div>
 

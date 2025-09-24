@@ -19,6 +19,10 @@ import { provideStore } from '@ngrx/store';
 import { provideStoreDevtools } from '@ngrx/store-devtools';
 import { provideEffects } from '@ngrx/effects';
 import { provideRouterStore } from '@ngrx/router-store';
+import { cartReducer } from './app-state/reducers/cart.reducers';
+import { favoritesReducer } from './app-state/reducers/favorites.reducers';
+import { FavoritesEffects } from './app-state/effects/favorites.effects';
+import { CartEffects } from './app-state/effects/cart.effects';
 
 const scrollConfig: InMemoryScrollingOptions = {
   scrollPositionRestoration: 'enabled',
@@ -36,9 +40,12 @@ export const appConfig: ApplicationConfig = {
     provideHttpClient(
       withInterceptors([loadingInterceptor, authTokenInterceptor])
     ),
-    provideStore(),
-    provideStoreDevtools({ maxAge: 25, logOnly: !isDevMode() }),
-    provideEffects(),
+    provideStore({
+      cart: cartReducer,
+      favorites: favoritesReducer,
+    }),
+    provideEffects([FavoritesEffects, CartEffects]),
+    provideStoreDevtools(),
     provideRouterStore(),
   ],
 };

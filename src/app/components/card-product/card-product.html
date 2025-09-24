@@ -1,10 +1,20 @@
-@if(product){
+@let isFavorite = (isFavorite$ | async); @if(product){
 
-<a [routerLink]="linkProduct" class="product-image-link">
-  <div class="product-image">
-    <img [src]="product.thumbnail" alt="" class="product-image-img" />
-  </div>
-</a>
+<div class="product-header">
+  <a [routerLink]="linkProduct" class="product-image-link">
+    <div class="product-image">
+      <img [src]="product.thumbnail" alt="" class="product-image-img" />
+    </div>
+  </a>
+
+  <button
+    title="Add to favorite"
+    class="favorite-btn"
+    (click)="!isFavorite ? addFavorite() : removeFavorite()"
+  >
+    <svg icon="heart" class="whish-icon" [appFavorite]="isFavorite"></svg>
+  </button>
+</div>
 
 <div class="product-info">
   <a [routerLink]="linkProduct" class="product-title-link">
@@ -20,7 +30,7 @@
       type="button"
       class="to-cart"
       title="Add to cart"
-      (click)="addToCart()"
+      (click)="addToCartBtn()"
     >
       <img src="assets/images/cart.svg" alt="" class="cart-icon" />
     </button>

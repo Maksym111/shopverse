@@ -1,0 +1,43 @@
+@let products = (products$ | async);
+
+<div class="container">
+  <main>
+    <div class="result-info mb24">
+      <p class="result-count">
+        Showing {{ currentRange().firstItem }}-{{ currentRange().lastItem }} of
+        {{ totalProductsNumb() }} results.
+      </p>
+
+      <div class="select-wrapper">
+        <div class="select-container">
+          <p class="select-title">Sort by</p>
+          <svg icon="arrow" class="select-arrow"></svg>
+          <app-select
+            [values]="selectSort"
+            (selectedValue)="setSort($event)"
+          ></app-select>
+        </div>
+      </div>
+    </div>
+
+    @if(products?.length){
+    <ul class="list card-list mb64">
+      @for(card of products; track card.id){
+      <li>
+        <app-card-product [product]="card"></app-card-product>
+      </li>
+      }
+    </ul>
+    } @else {
+    <h3 class="h3 mb32">No favorite products yet...</h3>
+    }
+  </main>
+
+  @if(paginationCount() > 1){
+  <app-pagination
+    [currentPage]="pageProduct()"
+    [count]="paginationCount()"
+    (pageEmmiter)="setPage($event)"
+  ></app-pagination>
+  }
+</div>

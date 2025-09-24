@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { CartProductInterf } from '../data/interfaces/cartProduct.interface';
+import { ICartProduct } from '../data/interfaces/cartProduct.interface';
 import { BehaviorSubject } from 'rxjs';
 import { Product } from '../data/interfaces/products.interface';
 
@@ -7,11 +7,9 @@ import { Product } from '../data/interfaces/products.interface';
   providedIn: 'root',
 })
 export class CartService {
-  private cart: CartProductInterf<Product>[] = [];
+  private cart: ICartProduct<Product>[] = [];
 
-  private cartSubject = new BehaviorSubject<CartProductInterf<Product>[]>(
-    this.cart
-  );
+  private cartSubject = new BehaviorSubject<ICartProduct<Product>[]>(this.cart);
   private totalPriceSubject = new BehaviorSubject<number>(0);
   private totalAmountProductsSubject = new BehaviorSubject<number>(0);
 
@@ -41,7 +39,7 @@ export class CartService {
     if (existProduct) {
       existProduct.quantity += amount || 1;
     } else {
-      const cartProduct: CartProductInterf<Product> = {
+      const cartProduct: ICartProduct<Product> = {
         product,
         quantity: amount || 1,
       };

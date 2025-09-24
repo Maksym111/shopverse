@@ -13,7 +13,7 @@ import { IconSvg } from '../icon-svg/icon-svg';
 import { Select } from '../select/select';
 import { ModalService } from '../../services/modal-service';
 import { FeedbackForm } from '../feedback-form/feedback-form';
-import { AuthService } from '../../core/auth';
+import { AuthService } from '../../core/auth-service';
 import { Observable } from 'rxjs';
 import { AsyncPipe } from '@angular/common';
 

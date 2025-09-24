@@ -2,12 +2,13 @@ import {
   ChangeDetectionStrategy,
   Component,
   inject,
+  OnInit,
   signal,
 } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Product } from '../../data/interfaces/products.interface';
 import {
-  CommonModule,
+  AsyncPipe,
   CurrencyPipe,
   NgClass,
   UpperCasePipe,
@@ -15,31 +16,52 @@ import {
 import { IconSvg } from '../../components/icon-svg/icon-svg';
 import { Reviews } from '../../components/reviews/reviews';
 import { Tabs } from '../../data/types/tabs.type';
-import { map } from 'rxjs';
-import { CartService } from '../../services/cart-service';
+import { map, Observable } from 'rxjs';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { toSignal } from '@angular/core/rxjs-interop';
+import { Store } from '@ngrx/store';
+import { addToCart } from '../../app-state/actions/cart.actions';
+import { isFavorite } from '../../app-state/selectors/favorites.selectors';
+import { Favorite } from '../../directives/favorite';
+import {
+  addToFavorites,
+  removeFromFavorites,
+} from '../../app-state/actions/favorites.actions';
 
 @Component({
   selector: 'app-product-page',
-  imports: [CurrencyPipe, UpperCasePipe, IconSvg, Reviews, NgClass],
+  imports: [
+    CurrencyPipe,
+    UpperCasePipe,
+    AsyncPipe,
+    IconSvg,
+    Reviews,
+    NgClass,
+    Favorite,
+  ],
   templateUrl: './product-page.html',
   styleUrl: './product-page.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class ProductPage {
-  private route = inject(ActivatedRoute);
-  private cartService = inject(CartService);
+export class ProductPage implements OnInit {
+  private activatedRoute = inject(ActivatedRoute);
   private snackBar = inject(MatSnackBar);
+  private store = inject(Store);
 
   product = toSignal(
-    this.route.data.pipe(map((data) => data['product'] as Product)),
+    this.activatedRoute.data.pipe(map((data) => data['product'] as Product)),
     { initialValue: null }
   );
 
   countProduct = signal(1);
 
   tabName: Tabs = 'reviews';
+
+  isFavorite$!: Observable<boolean>;
+
+  ngOnInit(): void {
+    this.isFavorite$ = this.store.select(isFavorite(this.product()!.id));
+  }
 
   addCount() {
     this.countProduct.update((val) => val + 1);
@@ -62,7 +84,10 @@ export class ProductPage {
     const product = this.product();
 
     if (product) {
-      this.cartService.addToCart(product, this.countProduct());
+      this.store.dispatch(
+        addToCart({ product, quantity: this.countProduct() })
+      );
+
       this.snackBar.open('Product added to the cart!', 'Ok', {
         horizontalPosition: 'end',
         verticalPosition: 'top',
@@ -70,5 +95,13 @@ export class ProductPage {
         panelClass: ['snackbar-success'],
       });
     }
+  }
+
+  addFavorite() {
+    this.store.dispatch(addToFavorites({ product: this.product()! }));
+  }
+
+  removeFavorite() {
+    this.store.dispatch(removeFromFavorites({ id: this.product()!.id }));
   }
 }

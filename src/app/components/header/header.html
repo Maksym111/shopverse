@@ -3,58 +3,68 @@
   <!-- <a href="" class="link header-link">Order Now</a> -->
 </div>
 
-<div class="container">
-  <div class="header-wrapper mb12">
-    <a routerLink="/" class="logo-wrapper">
-      <img src="assets/images/header-logo.svg" alt="" class="logo" />
-      <span class="logo-text">Shopverse</span>
-    </a>
+<div class="bottom-header">
+  <div class="container">
+    <div class="header-wrapper">
+      <a routerLink="/" class="logo-wrapper">
+        <img src="assets/images/header-logo.svg" alt="" class="logo" />
+        <span class="logo-text">Shopverse</span>
+      </a>
 
-    <nav class="navigation">
-      <ul class="list">
-        @for(nav of navList; track nav){
-        <li class="item">
-          <a [routerLink]="nav.path" class="link navigation-link">
-            <span class="text">{{ nav.name }}</span>
-            @if(nav.sublinks?.length){
-            <span class="arrow"></span>
+      <nav class="navigation">
+        <ul class="list">
+          @for(nav of navList; track nav){
+          <li class="item">
+            <a
+              [routerLink]="nav.path"
+              class="link navigation-link"
+              routerLinkActive="active"
+              [routerLinkActiveOptions]="{exact:
+true}"
+            >
+              <span class="text">{{ nav.name }}</span>
+              @if(nav.sublinks?.length){
+              <span class="arrow"></span>
+              }
+            </a>
+          </li>
+          }
+        </ul>
+      </nav>
+
+      <div class="header-right">
+        <app-search></app-search>
+
+        <div class="header-cart">
+          <a routerLink="/cart" class="link cart-link">
+            <img src="assets/images/cart.svg" alt="" class="header-cart-icon" />
+            @if (productsAmount$ | async) {
+            <span class="cart-count-products">{{productsAmount$ | async}}</span>
             }
           </a>
-        </li>
-        }
-      </ul>
-    </nav>
-
-    <div class="header-right">
-      <app-search></app-search>
-
-      <div class="header-cart">
-        <a routerLink="/cart" class="link cart-link">
-          <img src="assets/images/cart.svg" alt="" class="header-cart-icon" />
-          @if (productsAmount$ | async) {
-          <span class="cart-count-products">{{productsAmount$ | async}}</span>
-          }
-        </a>
-      </div>
-      <div class="header-user-info">
-        @if(isLoggedIn$ | async){
-        <!-- <a routerLink="/profile">
+        </div>
+        <div class="header-user-info">
+          @if(isLoggedIn$ | async){
+          <!-- <a routerLink="/profile">
           <img
             src="assets/images/user-icon.svg"
             alt=""
             class="header-user-info-icon"
           />
         </a> -->
-        <button type="button" class="logout-btn" (click)="onLogout()">
-          Log out
-        </button>
-        } @else {
-        <a routerLink="/login" class="login-link">Log in</a>
-        }
+          <button type="button" class="logout-btn" (click)="onLogout()">
+            Log out
+          </button>
+          } @else {
+          <a routerLink="/login" class="login-link">Log in</a>
+          }
+        </div>
       </div>
     </div>
   </div>
+</div>
 
+<div class="container">
   <ul class="list breadcrumbs-list mb24">
     <li class="breadcrumb-item">
       <a routerLink="/" class="link breadcrumb">

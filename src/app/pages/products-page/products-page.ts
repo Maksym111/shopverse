@@ -42,33 +42,35 @@ export class ProductsPage implements OnInit {
   haveFilters = false;
 
   pageProduct = signal(1);
-  totalProductsNumb = signal(0);
-  paginationCount = computed(() =>
-    Math.ceil(this.totalProductsNumb() / this.limitPerPage)
-  );
+  pageProduct$ = toObservable(this.pageProduct);
+  productsResponse$!: Observable<ProductResponse>;
+  products$!: Observable<Product[]>;
 
   currentRange = computed(() => {
     const page = this.pageProduct();
     const total = this.totalProductsNumb();
 
     return {
-      firstItem: (page - 1) * this.limitPerPage + 1,
+      firstItem: total ? (page - 1) * this.limitPerPage + 1 : 0,
       lastItem: Math.min(page * this.limitPerPage, total),
     };
   });
 
-  // sort and filters
-  private sortSubject = new BehaviorSubject<string>('not-selected');
-  sort$ = this.sortSubject.asObservable();
+  // search
+  searchQuery$!: Observable<string | null>;
 
+  // pagination
+  totalProductsNumb = signal(0);
+  paginationCount = computed(() =>
+    Math.ceil(this.totalProductsNumb() / this.limitPerPage)
+  );
+
+  // filters and sort
   private filtersSubject = new BehaviorSubject<FiltersInterf | null>(null);
   filters$ = this.filtersSubject.asObservable();
 
-  searchQuery$!: Observable<string | null>;
-  productsResponse$!: Observable<ProductResponse>;
-  products$!: Observable<Product[]>;
-
-  pageProduct$ = toObservable(this.pageProduct);
+  private sortSubject = new BehaviorSubject<string>('not-selected');
+  sort$ = this.sortSubject.asObservable();
 
   selectSort = [
     { label: 'Not selected', value: 'not-selected', selected: true },
@@ -141,7 +143,7 @@ export class ProductsPage implements OnInit {
         };
 
         // if we have filters
-        if (filters && filters.category && filters?.category.length > 0) {
+        if (filters?.category && filters?.category.length > 0) {
           return this.productService.getProductsByCategory(filters.category);
         }
 

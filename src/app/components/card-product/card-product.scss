@@ -11,6 +11,17 @@
   }
 }
 
+.product-header {
+  position: relative;
+
+  .favorite-btn {
+    position: absolute;
+    right: 10px;
+    top: 10px;
+    border: none;
+  }
+}
+
 .product-image-link {
   display: block;
   cursor: pointer;

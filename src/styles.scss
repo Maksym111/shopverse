@@ -213,6 +213,11 @@ a {
   }
 }
 
+.whish-icon.filled {
+  fill: red;
+  color: red;
+}
+
 .whish-icon {
   width: 20px;
   height: 20px;
@@ -310,11 +315,6 @@ a {
   }
 }
 
-.select-wrapper {
-  padding-bottom: 16px;
-  border-bottom: 1px solid var(--light-color);
-}
-
 .select-container {
   position: relative;
   display: flex;
@@ -322,6 +322,7 @@ a {
   align-items: center;
   margin-left: auto;
   width: fit-content;
+  z-index: 1;
 }
 
 .select-title {

@@ -1,16 +1,15 @@
-import {
-  ChangeDetectionStrategy,
-  Component,
-  OnDestroy,
-  OnInit,
-} from '@angular/core';
+import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { CartProduct } from '../../components/cart-product/cart-product';
-import { CartService } from '../../services/cart-service';
-import { CartProductInterf } from '../../data/interfaces/cartProduct.interface';
+import { ICartProduct } from '../../data/interfaces/cartProduct.interface';
 import { Product } from '../../data/interfaces/products.interface';
 import { AsyncPipe, CurrencyPipe } from '@angular/common';
 import { combineLatest, map, Observable } from 'rxjs';
 import { RouterLink } from '@angular/router';
+import { Store } from '@ngrx/store';
+import {
+  selectCart,
+  selectCartTotalPrice,
+} from '../../app-state/selectors/cart.selectors';
 
 @Component({
   selector: 'app-cart-page',
@@ -23,17 +22,17 @@ export class CartPage implements OnInit {
   tax = 3;
   shipping$!: Observable<number | string>;
 
-  cartProducts$!: Observable<CartProductInterf<Product>[]>;
+  cartProducts$!: Observable<ICartProduct<Product>[]>;
   allProductsPrice$!: Observable<number>;
 
   totalPrice$!: Observable<number>;
 
-  constructor(private cartService: CartService) {}
+  constructor(private store: Store) {}
 
   ngOnInit(): void {
-    this.cartProducts$ = this.cartService.cart$.pipe(map((cart) => [...cart]));
+    this.cartProducts$ = this.store.select(selectCart);
 
-    this.allProductsPrice$ = this.cartService.totalPrice$;
+    this.allProductsPrice$ = this.store.select(selectCartTotalPrice);
 
     this.shipping$ = this.allProductsPrice$.pipe(
       map((price) => (price > 100 ? 'Free' : 10))

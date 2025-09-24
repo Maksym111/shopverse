@@ -27,6 +27,14 @@ export const routes: Routes = [
         },
         resolve: { product: ProductResolverService },
       },
+      {
+        path: 'favorites',
+        loadComponent: () =>
+          import('./pages/favorites-page/favorites-page').then(
+            (c) => c.FavoritesPage
+          ),
+        data: { breadcrumb: 'Favorites' },
+      },
       { path: 'cart', component: CartPage, data: { breadcrumb: 'Cart' } },
       {
         path: 'login',

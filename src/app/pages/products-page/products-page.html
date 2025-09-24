@@ -1,14 +1,16 @@
+@let filters = (filters$ | async); @let searchQuery = (searchQuery$ | async);
+
 <div class="container">
   <main class="main-wrap">
     <app-filters (filtersEmitted)="setFilters($event)"></app-filters>
 
     <div class="search-wrapper">
-      @if ((filters$ | async)?.category?.length) {
+      @if (filters?.category?.length) {
       <div class="applied-filters-wrapper mb24">
         <p class="search-sub-title mb12">Applied Filters:</p>
 
         <ul class="list applied-filters">
-          @for(category of (filters$ | async)?.category; track category.id){
+          @for(category of filters?.category; track category.id){
           <li class="applied-filters-item">
             <span class="applied-filters-text">{{category.value}}</span>
           </li>
@@ -18,18 +20,15 @@
       }
 
       <div class="result-info-wrapper mb24">
-        @if(!(searchQuery$ | async)){
         <p class="result-count">
           Showing {{ currentRange().firstItem }}-{{ currentRange().lastItem }}
-          of {{ totalProductsNumb() }} results.
+          of {{ totalProductsNumb() }} results @if(searchQuery){
+          <ng-container>
+            for
+            <span class="searched-word"> "{{ searchQuery }}" </span>
+          </ng-container>
+          }
         </p>
-        } @else {
-        <p class="result-count">
-          Showing {{ currentRange().firstItem }}-{{ currentRange().lastItem }}
-          of {{ totalProductsNumb() }} results for
-          <span class="searched-word"> "{{ searchQuery$ | async }}" </span>.
-        </p>
-        }
 
         <div class="select-wrapper">
           <div class="select-container">

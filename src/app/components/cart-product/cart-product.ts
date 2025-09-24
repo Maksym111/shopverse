@@ -5,9 +5,14 @@ import {
   OnInit,
 } from '@angular/core';
 import { Product } from '../../data/interfaces/products.interface';
-import { CartProductInterf } from '../../data/interfaces/cartProduct.interface';
+import { ICartProduct } from '../../data/interfaces/cartProduct.interface';
 import { CurrencyPipe } from '@angular/common';
-import { CartService } from '../../services/cart-service';
+import { Store } from '@ngrx/store';
+import {
+  addToCart,
+  reduceAmountCartProduct,
+  removeFromCart,
+} from '../../app-state/actions/cart.actions';
 
 @Component({
   selector: 'app-cart-product',
@@ -17,12 +22,12 @@ import { CartService } from '../../services/cart-service';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class CartProduct implements OnInit {
-  @Input() cartProduct!: CartProductInterf<Product>;
+  @Input() cartProduct!: ICartProduct<Product>;
   count = 1;
   title = '';
   image = '';
 
-  constructor(private cartService: CartService) {}
+  constructor(private store: Store) {}
 
   ngOnInit(): void {
     this.title = this.cartProduct.product.title;
@@ -38,15 +43,24 @@ export class CartProduct implements OnInit {
 
   reduceCount() {
     this.count -= 1;
-    this.cartService.reduceAmount(this.cartProduct.product.id);
+    this.store.dispatch(
+      reduceAmountCartProduct({ productId: this.cartProduct.product.id })
+    );
   }
 
   addCount() {
     this.count += 1;
-    this.cartService.addToCart(this.cartProduct.product);
+    this.store.dispatch(
+      addToCart({
+        product: this.cartProduct.product,
+        quantity: 1,
+      })
+    );
   }
 
   removeProduct() {
-    this.cartService.removeFromCart(this.cartProduct.product.id);
+    this.store.dispatch(
+      removeFromCart({ productId: this.cartProduct.product.id })
+    );
   }
 }

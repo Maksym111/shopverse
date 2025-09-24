@@ -1,5 +1,11 @@
 @use "mixins.scss" as mixins;
 
+:host {
+  position: relative;
+  z-index: 3;
+  background-color: var(--white-color);
+}
+
 .top-header {
   display: flex;
   gap: 8px;
@@ -21,10 +27,18 @@
   text-decoration: underline;
 }
 
+.bottom-header {
+  position: sticky;
+  top: 0;
+  z-index: 4;
+  background-color: var(--white-color);
+}
+
 .header-wrapper {
   display: grid;
   grid-template-columns: auto 1fr 1fr;
   align-items: center;
+  border-bottom: 1px solid var(--light-color);
 }
 
 .logo-wrapper {
@@ -63,6 +77,15 @@
   align-items: center;
   font-weight: 500;
   color: var(--regular-color);
+
+  &.active {
+    border-bottom: 1px solid var(--regular-color);
+
+    .text {
+      font-weight: 600;
+      color: var(--primary-color);
+    }
+  }
 }
 
 .header-right {
@@ -93,7 +116,6 @@
   align-items: center;
   padding: 15px 0;
   border-bottom: 1px solid var(--light-color);
-  border-top: 1px solid var(--light-color);
 }
 
 .breadcrumb-item {

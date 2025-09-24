@@ -4,7 +4,7 @@ import {
   HttpRequest,
 } from '@angular/common/http';
 import { inject } from '@angular/core';
-import { AuthService } from '../auth';
+import { AuthService } from '../auth-service';
 import {
   BehaviorSubject,
   catchError,
