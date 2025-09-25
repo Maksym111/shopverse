@@ -1,3 +1,9 @@
+:host {
+  display: grid;
+  grid-template-rows: auto 1fr auto;
+  min-height: 100vh;
+}
+
 .spinner-wrapper {
   position: fixed;
   top: 0;

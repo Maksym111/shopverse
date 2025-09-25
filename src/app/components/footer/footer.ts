@@ -25,11 +25,10 @@ export class Footer implements OnInit {
     this.router.events
       .pipe(filter((e) => e instanceof NavigationEnd))
       .subscribe((e: any) => {
-        this.isSpecUrl = e.url === '/login' || this.router.url === '/cart';
+        this.isSpecUrl = e.url === '/' || this.router.url === '/products';
         this.cdr.markForCheck();
       });
 
-    this.isSpecUrl =
-      this.router.url === '/login' || this.router.url === '/cart';
+    this.isSpecUrl = this.router.url === '/' || this.router.url === '/products';
   }
 }

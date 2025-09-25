@@ -1,0 +1,32 @@
+<div class="container">
+  <div class="column">
+    <h5 class="h5 mb64">Shipping Address</h5>
+    <app-checkout-form></app-checkout-form>
+  </div>
+
+
+  <div class="column second-column">
+    <h5 class="h5 mb64">Your Order</h5>
+
+    <div class="edition-wrapper mb64">
+      <div class="products-container">
+        @for(item of (products | async); track item.product.id; let i = $index){
+
+        @if(i === 4){
+        <div class="img-wrapper dots">
+          <span>...</span>
+        </div>
+        } @else {
+        <div class="img-wrapper">
+          <img [src]="item.product.thumbnail" [alt]="item.product.title">
+        </div>
+        }
+        }
+      </div>
+
+      <button class="btn edit-btn" (click)="onEdit()">Edit Cart</button>
+    </div>
+
+    <app-cart-order-summary></app-cart-order-summary>
+  </div>
+</div>

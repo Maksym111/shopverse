@@ -23,21 +23,10 @@
   width: 100%;
 }
 
-.cart-order-summary {
+.cart-order-summary-wrapp {
   border-radius: 4px;
   border: 1px solid var(--light-color);
   padding: 32px 24px;
-}
-
-.summary-item {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  gap: 15px;
-}
-
-.summary-item-title {
-  font-weight: 500;
 }
 
 .summary-btn {

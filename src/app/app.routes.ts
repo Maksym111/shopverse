@@ -7,6 +7,7 @@ import { ProductsPage } from './pages/products-page/products-page';
 import { LoginPage } from './pages/login-page/login-page';
 import { CartPage } from './pages/cart-page/cart-page';
 import { canActivateAuth } from './core/guards/auth.guard';
+import { CheckoutPage } from './pages/checkout-page/checkout-page';
 
 export const routes: Routes = [
   {
@@ -36,6 +37,11 @@ export const routes: Routes = [
         data: { breadcrumb: 'Favorites' },
       },
       { path: 'cart', component: CartPage, data: { breadcrumb: 'Cart' } },
+      {
+        path: 'checkout',
+        component: CheckoutPage,
+        data: { breadcrumb: 'Checkout' },
+      },
       {
         path: 'login',
         component: LoginPage,

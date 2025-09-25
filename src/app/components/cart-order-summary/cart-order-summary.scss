@@ -1,0 +1,10 @@
+.summary-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 15px;
+}
+
+.summary-item-title {
+  font-weight: 500;
+}

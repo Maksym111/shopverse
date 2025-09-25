@@ -1,4 +1,4 @@
-@if(!isSpecUrl){
+@if(isSpecUrl){
 <section class="subscribe">
   <div class="container">
     <div class="subscribe-description">
@@ -14,17 +14,13 @@
 </section>
 }
 
-<footer class="footer" [class.isSpec]="isSpecUrl">
+<footer class="footer" [class.isSpec]="!isSpecUrl">
   <div class="container">
     <div class="footer-grid">
       <div class="footer-first">
         <a routerLink="/" class="footer-full-logo-wrap mb12">
           <div class="footer-logo-wrapper">
-            <img
-              src="assets/images/logo.svg"
-              alt="Shopverse Logo"
-              class="footer-logo"
-            />
+            <img src="assets/images/logo.svg" alt="Shopverse Logo" class="footer-logo" />
           </div>
           <span class="footer-logo-text">Shopverse</span>
         </a>
@@ -106,11 +102,7 @@
         <ul class="list icons-list">
           <li class="item">
             <a class="link">
-              <img
-                src="assets/images/master-card-icon.svg"
-                alt=""
-                class="icon"
-              />
+              <img src="assets/images/master-card-icon.svg" alt="" class="icon" />
             </a>
           </li>
           <li class="item">

@@ -1,7 +1,7 @@
 @let filters = (filters$ | async); @let searchQuery = (searchQuery$ | async);
 
 <div class="container">
-  <main class="main-wrap">
+  <div class="main-wrap">
     <app-filters (filtersEmitted)="setFilters($event)"></app-filters>
 
     <div class="search-wrapper">
@@ -34,10 +34,7 @@
           <div class="select-container">
             <p class="select-title">Sort by</p>
             <svg icon="arrow" class="select-arrow"></svg>
-            <app-select
-              [values]="selectSort"
-              (selectedValue)="setSort($event)"
-            ></app-select>
+            <app-select [values]="selectSort" (selectedValue)="setSort($event)"></app-select>
           </div>
         </div>
       </div>
@@ -50,13 +47,10 @@
         }
       </ul>
     </div>
-  </main>
+  </div>
 
   @if(paginationCount() > 1 && !haveFilters){
-  <app-pagination
-    [currentPage]="pageProduct()"
-    [count]="paginationCount()"
-    (pageEmmiter)="setPage($event)"
-  ></app-pagination>
+  <app-pagination [currentPage]="pageProduct()" [count]="paginationCount()"
+    (pageEmmiter)="setPage($event)"></app-pagination>
   }
 </div>

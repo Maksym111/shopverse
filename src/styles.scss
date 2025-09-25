@@ -44,6 +44,7 @@
 }
 
 body {
+
   -webkit-font-smoothing: antialiased;
   font-size: 14px;
   line-height: 1.75;
@@ -162,6 +163,11 @@ a {
   &:hover {
     opacity: 0.9;
   }
+
+  &:disabled {
+    opacity: 0.5;
+    cursor: auto;
+  }
 }
 
 .circled {
@@ -188,6 +194,13 @@ a {
   ::placeholder {
     color: var(--placeholder-color);
   }
+}
+
+.input:focus-visible,
+.form-textarea:focus-visible,
+.select:focus-visible {
+  outline: none;
+  border: 1px solid #35a3f1;
 }
 
 .card-share {
@@ -266,6 +279,7 @@ a {
   stroke: var(--regular-color);
   stroke-width: 2px;
 }
+
 .tab-icon {
   width: 16px;
   height: 16px;
@@ -377,6 +391,10 @@ a {
   }
 }
 
+.form-textarea {
+  resize: none;
+}
+
 .form-field-error {
   color: var(--error-color-text);
   margin-top: 3px;
@@ -418,11 +436,6 @@ a {
     border: 2px solid var(--primary-color);
   }
 
-  &:disabled {
-    opacity: 0.5;
-    cursor: auto;
-  }
-
   &:disabled:hover {
     border: none;
   }
@@ -452,4 +465,8 @@ a {
     color: var(--white-color);
     font-weight: 500;
   }
+}
+
+.required-star {
+  color: var(--error-color-text);
 }

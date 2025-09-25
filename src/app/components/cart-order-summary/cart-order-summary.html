@@ -1,0 +1,29 @@
+@let shipping = shipping$ | async;
+
+<div class="cart-order-summary">
+  <div class="summary-item mb12">
+    <span class="summary-item-title">Subtotal</span>
+    <span class="price">{{allProductsPrice$ | async | currency}}</span>
+  </div>
+
+  <div class="summary-item mb12">
+    <span class="summary-item-title">Shipping: </span>
+    @if(shipping === 'Free'){
+    <span class="price">Free</span>
+    } @else {
+    <span class="price">{{shipping | currency }}</span>
+    }
+  </div>
+
+  <div class="summary-item mb24">
+    <span class="summary-item-title">Tax: </span>
+    <span class="price">{{tax | currency}}</span>
+  </div>
+
+  <hr class="light-line mb24" />
+
+  <div class="summary-item mb32">
+    <span class="summary-item-title">Total</span>
+    <span class="price">{{totalPrice$ | async | currency}}</span>
+  </div>
+</div>

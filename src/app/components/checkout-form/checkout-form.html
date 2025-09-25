@@ -1,0 +1,109 @@
+<form class="checkout-form" [formGroup]="form" (ngSubmit)="onSubmit()">
+  <div class="form-field-wrapper">
+    <label for="email" class="form-label">Email
+      @if(isRequired(email!)){<span class="required-star">*</span>}
+    </label>
+    <input type="email" id="email" class="input" formControlName="email" placeholder="example@qwe.com">
+
+    @if(isError(email!)){
+    <p class="form-field-error">{{isError(email!)}}</p>
+    }
+  </div>
+
+  <div class="form-field-wrapper">
+    <label for="full-name" class="form-label">Full name
+
+      @if(isRequired(fullName!)){<span class="required-star">*</span>}
+    </label>
+    <input type="text" id="full-name" class="input" formControlName="fullName" placeholder="Mark Gatsby">
+
+    @if(isError(fullName!)){
+    <p class="form-field-error">{{isError(fullName!)}}</p>
+    }
+  </div>
+
+  <div class="form-field-wrapper">
+    <label class="form-label">Country
+
+      @if(isRequired(country!)){<span class="required-star">*</span>}
+    </label>
+    <select name="select" id="select" formControlName="country" class="select">
+      <option selected disabled value="">Choose country</option>
+
+      @for(country of countriesSelect; track country.value){
+      <option [value]="country.value">{{country.label}}</option>
+
+      }
+    </select>
+
+    @if(isError(country!)){
+    <p class="form-field-error">{{isError(country!)}}</p>
+    }
+  </div>
+
+  <div class="form-field-wrapper">
+    <label for="state" class="form-label">State
+
+      @if(isRequired(state!)){<span class="required-star">*</span>}
+    </label>
+    <input type="text" id="state" class="input" formControlName="state" placeholder="Odeska">
+
+    @if(isError(state!)){
+    <p class="form-field-error">{{isError(state!)}}</p>
+    }
+  </div>
+
+  <div class="form-field-wrapper">
+    <label for="city" class="form-label">City
+      @if(isRequired(city!)){<span class="required-star">*</span>}
+    </label>
+    <input type="text" id="city" class="input" formControlName="city" placeholder="Odesa">
+
+    @if(isError(city!)){
+    <p class="form-field-error">{{isError(city!)}}</p>
+    }
+  </div>
+
+  <div class="form-field-wrapper">
+    <label for="zip" class="form-label">Zip Code
+      @if(isRequired(zip!)){<span class="required-star">*</span>}
+    </label>
+    <input type="text" id="zip" class="input" formControlName="zip" placeholder="123456789">
+
+    @if(isError(zip!)){
+    <p class="form-field-error">{{isError(zip!)}}</p>
+    }
+  </div>
+
+  <div class="form-field-wrapper full-row">
+    <label for="street" class="form-label">Street Address
+      @if(isRequired(street!)){<span class="required-star">*</span>}
+    </label>
+    <input type="text" id="street" class="input" formControlName="street" placeholder="Shevchenko, 24">
+
+    @if(isError(street!)){
+    <p class="form-field-error">{{isError(street!)}}</p>
+    }
+  </div>
+
+  <div class="form-field-wrapper full-row">
+    <label for="comments">Comments</label>
+    <textarea name="comments" id="comments" formControlName="comments" class="form-textarea" rows="5"></textarea>
+  </div>
+
+  <div class="form-field-wrapper full-row">
+    <div class="row">
+      <input type="checkbox" id="terms" formControlName="terms">
+      <label for="terms">I agree to the Terms and Conditions and Privacy Policy
+        @if(isRequired(terms!)){<span class="required-star">*</span>}
+      </label>
+    </div>
+
+    @if(isError(terms!)){
+    <p class="form-field-error">{{isError(terms!)}}</p>
+    }
+  </div>
+
+  <button type="submit" class="btn submit-btn mt24" [disabled]="form.invalid">Place Order</button>
+
+</form>
